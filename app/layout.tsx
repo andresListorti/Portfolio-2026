@@ -9,12 +9,12 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://portfolio25-seven-nu.vercel.app"),
-  title: "Andrés Listorti — Full-Stack Developer · AI-Native Engineer · Lawyer",
+  title: "Andrés Antonio Listorti — Full-Stack Developer · AI-Native Engineer · Lawyer",
   description:
     "Full-stack developer (Next.js, React, Node/Express, Java/Spring) working AI-first with Claude Code, Copilot and Codex. Former business lawyer: rigorous code review and clear technical writing in English and Spanish.",
-  generator: "Andres Listorti",
+  generator: "Andrés Antonio Listorti",
   openGraph: {
-    title: "Andrés Listorti — Full-Stack Developer · AI-Native Engineer",
+    title: "Andrés Antonio Listorti — Full-Stack Developer · AI-Native Engineer",
     description:
       "Production e-commerce, AI agent SaaS and business tools. AI-native workflow, careful review of AI-generated code, EN C1 / ES native.",
     url: "https://portfolio25-seven-nu.vercel.app",

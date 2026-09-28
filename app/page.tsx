@@ -162,7 +162,7 @@ export default function Page() {
         <section id="about" className="py-12 md:py-24 lg:py-32">
           <div className="flex flex-col items-center justify-center space-y-6 text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
-              Andrés Listorti · Buenos Aires, Argentina · Remote
+              Andrés Antonio Listorti · Buenos Aires, Argentina · Remote
             </p>
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl/none">
               Full-Stack Developer · AI-Native Engineer · Lawyer
@@ -300,7 +300,7 @@ export default function Page() {
 
       <footer className="border-t">
         <div className="container flex w-full shrink-0 items-center px-4 py-6 md:px-6">
-          <p className="text-xs text-gray-500 dark:text-gray-400">© 2026 Andrés Listorti</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">© 2026 Andrés Antonio Listorti</p>
         </div>
       </footer>
     </div>
