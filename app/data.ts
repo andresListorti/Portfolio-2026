@@ -1,4 +1,4 @@
-export const SITE_URL = "https://andres-listorti.vercel.app";
+export const SITE_URL = "https://andres-listorti-2026.vercel.app";
 export const NAME = "Andrés Antonio Listorti";
 
 export type Locale = "en" | "es";
