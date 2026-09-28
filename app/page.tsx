@@ -127,7 +127,7 @@ export default function Page() {
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 items-center">
+        <div className="container mx-auto flex h-14 items-center px-4 md:px-6">
           <div className="mr-4 flex">
             <Link className="mr-6 flex items-center space-x-2" href="/">
               <span className="font-bold">AndresListorti.dev</span>
@@ -158,7 +158,7 @@ export default function Page() {
         </div>
       </header>
 
-      <main className="container px-4 md:px-6">
+      <main className="container mx-auto px-4 md:px-6">
         <section id="about" className="py-12 md:py-24 lg:py-32">
           <div className="flex flex-col items-center justify-center space-y-6 text-center">
             <p className="text-sm font-medium uppercase tracking-widest text-muted-foreground">
@@ -299,7 +299,7 @@ export default function Page() {
       </main>
 
       <footer className="border-t">
-        <div className="container flex w-full shrink-0 items-center px-4 py-6 md:px-6">
+        <div className="container mx-auto flex w-full shrink-0 items-center px-4 py-6 md:px-6">
           <p className="text-xs text-gray-500 dark:text-gray-400">© 2026 Andrés Antonio Listorti</p>
         </div>
       </footer>
