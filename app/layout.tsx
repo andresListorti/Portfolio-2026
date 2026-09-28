@@ -1,50 +1,48 @@
-import { ThemeProvider } from "@/components/theme-provider";
-import { cn } from "@/lib/utils";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import type React from "react";
+import { NAME, ROLE, SITE_URL } from "./data";
 import "./globals.css";
-import type React from "react"; // Import React
 
-const inter = Inter({ subsets: ["latin"] });
+const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
+const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+
+const description =
+  "Full-stack developer (Next.js, Node, Java/Spring) and lawyer based in Buenos Aires. I ship end-to-end products and review AI-generated code with a lawyer's rigor.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://portfolio25-seven-nu.vercel.app"),
-  title: "Andrés Antonio Listorti — Full-Stack Developer · AI-Native Engineer · Lawyer",
-  description:
-    "Full-stack developer (Next.js, React, Node/Express, Java/Spring) working AI-first with Claude Code, Copilot and Codex. Former business lawyer: rigorous code review and clear technical writing in English and Spanish.",
-  generator: "Andrés Antonio Listorti",
+  metadataBase: new URL(SITE_URL),
+  title: `${NAME} — ${ROLE}`,
+  description,
+  authors: [{ name: NAME }],
   openGraph: {
-    title: "Andrés Antonio Listorti — Full-Stack Developer · AI-Native Engineer",
-    description:
-      "Production e-commerce, AI agent SaaS and business tools. AI-native workflow, careful review of AI-generated code, EN C1 / ES native.",
-    url: "https://portfolio25-seven-nu.vercel.app",
-    siteName: "AndresListorti.dev",
+    title: `${NAME} — ${ROLE}`,
+    description,
+    url: SITE_URL,
+    siteName: NAME,
     type: "website",
+    locale: "en_US",
   },
+  twitter: { card: "summary_large_image", title: NAME, description },
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
+    { media: "(prefers-color-scheme: light)", color: "#f8f8f6" },
+  ],
+};
+
+// Runs before paint so the saved theme applies without a flash. Dark is the default.
+const themeScript = `try{if(localStorage.getItem('theme')!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          inter.className
-        )}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          {children}
-        </ThemeProvider>
-      </body>
+    <html lang="en" suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>{children}</body>
     </html>
   );
 }
