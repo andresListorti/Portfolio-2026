@@ -3,28 +3,36 @@ import { Card } from "@/components/ui/card"
 const technologies = [
   {
     category: "Frontend",
-    skills: ["React", "Next.js", "TypeScript", "TailwindCSS", "Redux", "GraphQL"],
+    skills: ["TypeScript", "JavaScript", "React", "Next.js (App Router)", "Tailwind CSS", "HTML/CSS"],
   },
   {
-    category: "Backend",
-    skills: ["Node.js", "Express", "Python", "Django", "PostgreSQL", "MongoDB"],
+    category: "Backend & Data",
+    skills: ["Node.js", "Express", "Java", "Spring Boot", "Python", "Firestore", "Firebase Auth", "MySQL / JPA"],
   },
   {
-    category: "DevOps",
-    skills: ["Docker", "AWS", "CI/CD", "Git", "Linux", "Nginx"],
+    category: "Integrations",
+    skills: ["Mercado Pago (Checkout Bricks, webhooks)", "Meta Graph API", "Resend", "Sentry", "Socket.io"],
   },
   {
-    category: "Tools",
-    skills: ["VS Code", "Postman", "Figma", "Jest", "GitHub", "Vercel"],
+    category: "AI & Tooling",
+    skills: ["Claude Code", "GitHub Copilot", "OpenAI Codex", "Cursor", "Vercel AI SDK", "Gemini / OpenAI / Claude APIs"],
+  },
+  {
+    category: "Quality & Delivery",
+    skills: ["Vitest", "Testing Library", "Postman", "Git / GitHub", "Vercel", "Firebase Hosting"],
+  },
+  {
+    category: "Ways of working",
+    skills: ["Scrum", "Jira", "Figma", "Technical writing (EN C1 / ES native)"],
   },
 ]
 
 export default function TechStack() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {technologies.map((tech) => (
         <Card key={tech.category} className="p-6">
-          <h3 className="text-lg font-semibold mb-4">{tech.category}</h3>
+          <h3 className="mb-4 text-lg font-semibold">{tech.category}</h3>
           <div className="flex flex-wrap gap-2">
             {tech.skills.map((skill) => (
               <span

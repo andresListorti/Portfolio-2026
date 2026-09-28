@@ -1,30 +1,61 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Github } from "lucide-react"
+import { ExternalLink, Github, Lock } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
-interface ProjectCardProps {
-  title: string
-  description: string
-  image: string
-  link: string
-  tags: string[]
+interface ProjectLink {
+  label: string
+  href: string
+  kind: "live" | "code"
 }
 
-export default function ProjectCard({ title, description, image, link, tags }: ProjectCardProps) {
+interface ProjectCardProps {
+  title: string
+  subtitle: string
+  description: string
+  highlights: string[]
+  image?: string
+  links: ProjectLink[]
+  tags: string[]
+  isPrivate?: boolean
+}
+
+export default function ProjectCard({
+  title,
+  subtitle,
+  description,
+  highlights,
+  image,
+  links,
+  tags,
+  isPrivate,
+}: ProjectCardProps) {
   return (
-    <Card className="overflow-hidden">
+    <Card className="flex flex-col overflow-hidden">
       <div className="relative aspect-video">
-        <Image
-          src={image || "/placeholder.svg"}
-          alt={title}
-          fill
-          className="object-cover transition-transform hover:scale-105"
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={title}
+            fill
+            className="object-cover transition-transform hover:scale-105"
+          />
+        ) : (
+          <div className="flex h-full w-full flex-col justify-end bg-gradient-to-br from-slate-900 via-indigo-900 to-cyan-700 p-5 text-white">
+            <span className="text-xs uppercase tracking-widest text-cyan-200">{subtitle}</span>
+            <span className="text-2xl font-bold leading-tight">{title}</span>
+          </div>
+        )}
       </div>
-      <CardContent className="p-4">
-        <h3 className="font-semibold text-xl mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-4">{description}</p>
+      <CardContent className="flex-1 p-4">
+        <h3 className="mb-1 text-xl font-semibold">{title}</h3>
+        <p className="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">{subtitle}</p>
+        <p className="mb-3 text-sm text-muted-foreground">{description}</p>
+        <ul className="mb-4 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+          {highlights.map((h) => (
+            <li key={h}>{h}</li>
+          ))}
+        </ul>
         <div className="flex flex-wrap gap-2">
           {tags.map((tag) => (
             <span
@@ -36,11 +67,24 @@ export default function ProjectCard({ title, description, image, link, tags }: P
           ))}
         </div>
       </CardContent>
-      <CardFooter className="p-4 pt-0">
-        <Link href={link} target="_blank" className="inline-flex items-center gap-2 text-sm hover:underline">
-          <Github className="h-4 w-4" />
-          View on GitHub
-        </Link>
+      <CardFooter className="flex flex-wrap gap-4 p-4 pt-0">
+        {links.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            target="_blank"
+            className="inline-flex items-center gap-2 text-sm hover:underline"
+          >
+            {link.kind === "code" ? <Github className="h-4 w-4" /> : <ExternalLink className="h-4 w-4" />}
+            {link.label}
+          </Link>
+        ))}
+        {isPrivate && (
+          <span className="inline-flex items-center gap-2 text-sm text-muted-foreground">
+            <Lock className="h-4 w-4" />
+            Private code — demo on request
+          </span>
+        )}
       </CardFooter>
     </Card>
   )
