@@ -1,5 +1,7 @@
 import { ImageResponse } from "next/og";
-import { NAME, ROLE } from "./data";
+import { NAME, content } from "./data";
+
+const ROLE = content.en.hero.role;
 
 export const alt = `${NAME} — ${ROLE}`;
 export const size = { width: 1200, height: 630 };

@@ -2,7 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 
-export default function ThemeToggle() {
+export default function ThemeToggle({ label }: { label: string }) {
   function toggle() {
     const isDark = document.documentElement.classList.toggle("dark");
     try {
@@ -14,7 +14,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggle}
-      aria-label="Toggle color theme"
+      aria-label={label}
       className="grid h-9 w-9 place-items-center rounded-full border border-line text-muted transition hover:text-fg"
     >
       <Sun className="hidden h-4 w-4 dark:block" />
