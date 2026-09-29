@@ -226,7 +226,7 @@ const repos = {
 export const content: Record<Locale, Content> = {
   en: {
     meta: {
-      title: `${NAME} — AI-Native Full-Stack Engineer & Lawyer`,
+      title: `${NAME} — AI-Native Full-Stack Developer & Lawyer`,
       description:
         "Full-stack developer (Next.js, Node, Java/Spring) and lawyer based in Buenos Aires. I ship end-to-end products and review AI-generated code with a lawyer's rigor.",
       ogLocale: "en_US",
@@ -251,7 +251,7 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Available for freelance & remote roles",
-      role: "AI-native full-stack engineer and lawyer",
+      role: "AI-native full-stack developer and lawyer",
       lead: "I direct AI coding agents to ship full-stack products fast, and I review every line they write with the rigor of 15 years reading contracts.",
       upwork: "Hire me on Upwork",
       email: "Email",
@@ -261,18 +261,18 @@ export const content: Record<Locale, Content> = {
     about: {
       eyebrow: "About",
       title: "A developer who spent fifteen years as a lawyer first.",
-      p1: "I've practiced business law since 2010, and I've been building software full-time since 2022, self-taught from 2020 and trained through Coderhouse. Today I build products for small businesses end to end: front end, back end, payments, auth and deployment.",
+      p1: "I've practiced business law since 2010, and I've been building software since 2020, self-taught at first and then trained through Coderhouse. Today I build products for small businesses end to end: front end, back end, payments, auth and deployment.",
       p2: "The legal background isn't a footnote. It's why I read specs closely, think about edge cases and failure modes, and explain technical decisions clearly to people who aren't engineers.",
       tiles: [
         { label: "Law", value: "Since 2010", sub: "Business law · Universidad de Belgrano" },
-        { label: "Code", value: "Since 2022", sub: "Full Stack · React & Next.js certs" },
+        { label: "Code", value: "Since 2020", sub: "Full Stack · React & Next.js certs" },
         { label: "Languages", value: "English C1 · Spanish native" },
         { label: "Works with", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
     },
     stats: [
       { value: 15, suffix: "+", label: "years practicing business law" },
-      { value: 4, suffix: "+", label: "years shipping software full-time" },
+      { value: 6, suffix: "+", label: "years building software" },
       { value: 3, suffix: "", label: "products running in production" },
       { value: 4, suffix: "", label: "AI coding agents in my daily loop" },
     ],
@@ -522,10 +522,10 @@ export const content: Record<Locale, Content> = {
       educationLabel: "Education",
       items: [
         {
-          period: "2022 — present",
+          period: "2020 — present",
           title: "Freelance Full-Stack Developer",
           org: "Self-employed · Remote",
-          body: "End-to-end products for small businesses: the Zapatería Genaro store, a costs & pricing tool for a shoe factory, and Digital Assistant, an AI SaaS for Instagram. Self-taught since 2020.",
+          body: "End-to-end products for small businesses: the Zapatería Genaro store, a costs & pricing tool for a shoe factory, and Digital Assistant, an AI SaaS for Instagram.",
         },
         {
           period: "2010 — present",
@@ -535,7 +535,7 @@ export const content: Record<Locale, Content> = {
         },
       ],
       education: [
-        { title: "Full Stack Development", org: "Coderhouse", period: "2023 — 2024" },
+        { title: "Full Stack Development", org: "Coderhouse", period: "2021 — 2024" },
         { title: "Next.js — Intensive Career (cert.)", org: "Coderhouse", period: "2025" },
         { title: "React JS — Intensive Career (cert.)", org: "Coderhouse", period: "2024" },
         { title: "Algorithms in Python", org: "ITMaster Academy", period: "2022 — 2023" },
@@ -572,7 +572,7 @@ export const content: Record<Locale, Content> = {
 
   es: {
     meta: {
-      title: `${NAME} — Ingeniero Full-Stack AI-Native y Abogado`,
+      title: `${NAME} — Desarrollador Full-Stack AI-Native y Abogado`,
       description:
         "Desarrollador full-stack (Next.js, Node, Java/Spring) y abogado en Buenos Aires. Construyo productos de punta a punta y reviso código generado por IA con rigor de abogado.",
       ogLocale: "es_AR",
@@ -597,7 +597,7 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Disponible para freelance y roles remotos",
-      role: "Ingeniero full-stack AI-native y abogado",
+      role: "Desarrollador full-stack AI-native y abogado",
       lead: "Dirijo agentes de IA para construir productos full-stack rápido, y reviso cada línea que escriben con el rigor de 15 años leyendo contratos.",
       upwork: "Contratame en Upwork",
       email: "Email",
@@ -607,18 +607,18 @@ export const content: Record<Locale, Content> = {
     about: {
       eyebrow: "Sobre mí",
       title: "Un desarrollador que antes fue abogado durante quince años.",
-      p1: "Ejerzo el derecho empresarial desde 2010 y desarrollo software a tiempo completo desde 2022: autodidacta desde 2020 y formado en Coderhouse. Hoy construyo productos para pymes de punta a punta: front end, back end, pagos, autenticación y deploy.",
+      p1: "Ejerzo el derecho empresarial desde 2010 y desarrollo software desde 2020: primero como autodidacta y después formado en Coderhouse. Hoy construyo productos para pymes de punta a punta: front end, back end, pagos, autenticación y deploy.",
       p2: "La formación legal no es un detalle. Por eso leo las especificaciones con atención, pienso en los casos límite y en cómo puede fallar algo, y explico las decisiones técnicas con claridad a quienes no son ingenieros.",
       tiles: [
         { label: "Derecho", value: "Desde 2010", sub: "Derecho empresarial · Universidad de Belgrano" },
-        { label: "Código", value: "Desde 2022", sub: "Full Stack · certificaciones React y Next.js" },
+        { label: "Código", value: "Desde 2020", sub: "Full Stack · certificaciones React y Next.js" },
         { label: "Idiomas", value: "Inglés C1 · Español nativo" },
         { label: "Trabajo con", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
     },
     stats: [
       { value: 15, suffix: "+", label: "años ejerciendo derecho empresarial" },
-      { value: 4, suffix: "+", label: "años desarrollando software a tiempo completo" },
+      { value: 6, suffix: "+", label: "años desarrollando software" },
       { value: 3, suffix: "", label: "productos funcionando en producción" },
       { value: 4, suffix: "", label: "agentes de IA en mi flujo diario" },
     ],
@@ -868,10 +868,10 @@ export const content: Record<Locale, Content> = {
       educationLabel: "Formación",
       items: [
         {
-          period: "2022 — hoy",
+          period: "2020 — hoy",
           title: "Desarrollador Full-Stack freelance",
           org: "Independiente · Remoto",
-          body: "Productos de punta a punta para pymes: la tienda de Zapatería Genaro, una herramienta de costos y precios para una fábrica de calzado y Digital Assistant, un SaaS de IA para Instagram. Autodidacta desde 2020.",
+          body: "Productos de punta a punta para pymes: la tienda de Zapatería Genaro, una herramienta de costos y precios para una fábrica de calzado y Digital Assistant, un SaaS de IA para Instagram.",
         },
         {
           period: "2010 — hoy",
@@ -881,7 +881,7 @@ export const content: Record<Locale, Content> = {
         },
       ],
       education: [
-        { title: "Desarrollo Full Stack", org: "Coderhouse", period: "2023 — 2024" },
+        { title: "Desarrollo Full Stack", org: "Coderhouse", period: "2021 — 2024" },
         { title: "Next.js — Carrera intensiva (cert.)", org: "Coderhouse", period: "2025" },
         { title: "React JS — Carrera intensiva (cert.)", org: "Coderhouse", period: "2024" },
         { title: "Algoritmos en Python", org: "ITMaster Academy", period: "2022 — 2023" },
