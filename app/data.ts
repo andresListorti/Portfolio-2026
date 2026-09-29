@@ -140,6 +140,17 @@ type Content = {
     p2: string;
     tiles: { label: string; value: string; sub?: string }[];
   };
+  stats: { value: number; suffix: string; label: string }[];
+  marquee: string[];
+  graphLabels: string[];
+  images: { law: string; orchestration: string; portrait: string };
+  services: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    cta: string;
+    items: { name: string; body: string; deliverables: string[] }[];
+  };
   console: ConsoleCopy;
   pipeline: PipelineCopy & { eyebrow: string; title: string; intro: string };
   lab: {
@@ -223,6 +234,7 @@ export const content: Record<Locale, Content> = {
     nav: [
       { href: "#process", label: "Process" },
       { href: "#lab", label: "AI work" },
+      { href: "#services", label: "Services" },
       { href: "#work", label: "Projects" },
       { href: "#reviews", label: "Reviews" },
       { href: "#law", label: "AI + Law" },
@@ -256,6 +268,31 @@ export const content: Record<Locale, Content> = {
         { label: "Code", value: "Since 2022", sub: "Full Stack · React & Next.js certs" },
         { label: "Languages", value: "English C1 · Spanish native" },
         { label: "Works with", value: "Next.js · Node · Java/Spring · Firebase" },
+      ],
+    },
+    stats: [
+      { value: 15, suffix: "+", label: "years practicing business law" },
+      { value: 4, suffix: "+", label: "years shipping software full-time" },
+      { value: 3, suffix: "", label: "products running in production" },
+      { value: 4, suffix: "", label: "AI coding agents in my daily loop" },
+    ],
+    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java · Spring Boot", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Code review", "Business law"],
+    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Code review", "Business law", "AI governance"],
+    images: {
+      law: "Scales of justice drawn as a glowing knowledge graph, weighing legal papers against code",
+      orchestration: "A developer at night directing floating AI agent terminals connected to one central node",
+      portrait: "Portrait of Andrés Listorti",
+    },
+    services: {
+      eyebrow: "Services",
+      title: "What I can do for you.",
+      intro: "Freelance or embedded in your team, remote from Buenos Aires, in English or Spanish.",
+      cta: "Start a project",
+      items: [
+        { name: "Full-stack product builds", body: "From idea to deployed app: Next.js and React on the front, Node or Java on the back, with auth, payments and Vercel deploys wired in.", deliverables: ["working MVP in weeks", "payments and auth included", "preview deploy on every change"] },
+        { name: "AI features and agents", body: "LLM features that are useful and safe: chat, content generation and agent workflows, with a human approval step where it matters.", deliverables: ["Gemini, OpenAI or Claude APIs", "human-in-the-loop by design", "cost-aware model routing"] },
+        { name: "Review of AI-generated code", body: "A second pair of eyes on code your team or your agents wrote: correctness, edge cases and security, with written findings.", deliverables: ["written review report", "fix PRs on request", "auth, secrets and webhooks checked"] },
+        { name: "Tech and legal bridge", body: "Plain-language documentation of what an AI feature does, what data it touches and where its limits are, with Ley 25.326 and GDPR basics in mind.", deliverables: ["data-flow notes", "API terms and ToS reading", "bilingual EN / ES docs"] },
       ],
     },
     console: {
@@ -543,6 +580,7 @@ export const content: Record<Locale, Content> = {
     nav: [
       { href: "#process", label: "Proceso" },
       { href: "#lab", label: "IA" },
+      { href: "#services", label: "Servicios" },
       { href: "#work", label: "Proyectos" },
       { href: "#reviews", label: "Revisiones" },
       { href: "#law", label: "IA + Derecho" },
@@ -576,6 +614,31 @@ export const content: Record<Locale, Content> = {
         { label: "Código", value: "Desde 2022", sub: "Full Stack · certificaciones React y Next.js" },
         { label: "Idiomas", value: "Inglés C1 · Español nativo" },
         { label: "Trabajo con", value: "Next.js · Node · Java/Spring · Firebase" },
+      ],
+    },
+    stats: [
+      { value: 15, suffix: "+", label: "años ejerciendo derecho empresarial" },
+      { value: 4, suffix: "+", label: "años desarrollando software a tiempo completo" },
+      { value: 3, suffix: "", label: "productos funcionando en producción" },
+      { value: 4, suffix: "", label: "agentes de IA en mi flujo diario" },
+    ],
+    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java · Spring Boot", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Revisión de código", "Derecho empresarial"],
+    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Code review", "Derecho", "Gobernanza IA"],
+    images: {
+      law: "Balanza de la justicia dibujada como un grafo luminoso, pesando papeles legales contra código",
+      orchestration: "Un desarrollador de noche dirigiendo terminales de agentes de IA conectadas a un nodo central",
+      portrait: "Retrato de Andrés Listorti",
+    },
+    services: {
+      eyebrow: "Servicios",
+      title: "Qué puedo hacer por vos.",
+      intro: "Freelance o integrado a tu equipo, remoto desde Buenos Aires, en español o inglés.",
+      cta: "Empezar un proyecto",
+      items: [
+        { name: "Productos full-stack", body: "De la idea a la app publicada: Next.js y React en el front, Node o Java en el back, con autenticación, pagos y deploys en Vercel.", deliverables: ["MVP funcionando en semanas", "pagos y autenticación incluidos", "preview en cada cambio"] },
+        { name: "Funciones y agentes de IA", body: "Funciones con LLM útiles y seguras: chat, generación de contenido y flujos con agentes, con aprobación humana donde importa.", deliverables: ["APIs de Gemini, OpenAI o Claude", "humano en el circuito por diseño", "modelos elegidos según costo"] },
+        { name: "Revisión de código generado por IA", body: "Un segundo par de ojos sobre el código que escribió tu equipo o tus agentes: que sea correcto, casos límite y seguridad, con hallazgos por escrito.", deliverables: ["informe de revisión escrito", "PRs con los arreglos si querés", "auth, secretos y webhooks revisados"] },
+        { name: "Puente entre tecnología y derecho", body: "Documentación en lenguaje claro de qué hace una función de IA, qué datos toca y cuáles son sus límites, teniendo en cuenta la Ley 25.326 y lo básico del GDPR.", deliverables: ["notas de flujo de datos", "lectura de términos de APIs y plataformas", "documentación bilingüe ES / EN"] },
       ],
     },
     console: {

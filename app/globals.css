@@ -97,6 +97,27 @@ html.lenis body {
 .hero-in { animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
 .hero-in-late { animation-delay: 0.35s; }
 
+/* Keep the graph loud at the edges and quieter behind the reading column */
+.graph-veil {
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.5) 30%, rgb(0 0 0 / 0.5) 70%, #000);
+  mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.5) 30%, rgb(0 0 0 / 0.5) 70%, #000);
+}
+@media (min-width: 1024px) {
+  .graph-veil {
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(90deg, #000 4%, rgb(0 0 0 / 0.38) 22%, rgb(0 0 0 / 0.38) 78%, #000 96%);
+    mask-image: linear-gradient(90deg, #000 4%, rgb(0 0 0 / 0.38) 22%, rgb(0 0 0 / 0.38) 78%, #000 96%);
+  }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .caret, .hero-in { animation: none; }
+  .caret, .hero-in, .marquee-track { animation: none; }
 }

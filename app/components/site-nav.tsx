@@ -4,6 +4,9 @@ import { FileText } from "lucide-react";
 import { useEffect, useState } from "react";
 
 type NavProps = {
+  name: string;
+  shortName: string;
+  role: string;
   items: { href: string; label: string }[];
   sectionsLabel: string;
   topLabel: string;
@@ -20,7 +23,7 @@ type NavProps = {
 export default function SiteNav(p: NavProps) {
   const [active, setActive] = useState("");
 
-  // The prompt shows the section currently in view, like a shell's working directory.
+  // Highlight the nav link of the section currently in view.
   useEffect(() => {
     const sections = p.items
       .map((i) => document.getElementById(i.href.slice(1)))
@@ -45,13 +48,20 @@ export default function SiteNav(p: NavProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-line/70 bg-ink/75 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-page items-center gap-4 px-4 sm:px-6">
-        <a href="#top" aria-label={p.topLabel} className="min-w-0 truncate font-mono text-[13px]">
-          <span className="text-trace">andres@listorti</span>
-          <span className="text-muted">:~/</span>
-          <span className="text-fg">{active}</span>
-          <span className="caret ml-0.5 inline-block h-[1em] w-[0.5em] translate-y-[0.15em] bg-verdict" aria-hidden />
+        <a href="#top" aria-label={p.topLabel} className="group flex min-w-0 items-center gap-3">
+          <span className="relative grid h-9 w-9 shrink-0 place-items-center rounded-md bg-verdict text-[13px] font-bold tracking-tight text-ink transition-transform duration-300 group-hover:rotate-[-6deg]">
+            AAL
+            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-ink bg-trace" aria-hidden />
+          </span>
+          <span className="min-w-0 leading-tight">
+            <span className="block truncate text-[15px] font-semibold tracking-tight">
+              <span className="sm:hidden">{p.shortName}</span>
+              <span className="hidden sm:inline">{p.name}</span>
+            </span>
+            <span className="hidden truncate text-xs text-muted sm:block">{p.role}</span>
+          </span>
         </a>
-        <nav className="ml-auto hidden items-center gap-5 text-sm lg:flex" aria-label={p.sectionsLabel}>
+        <nav className="ml-auto hidden items-center gap-5 text-sm xl:flex" aria-label={p.sectionsLabel}>
           {p.items.map((n) => (
             <a
               key={n.href}
@@ -63,7 +73,7 @@ export default function SiteNav(p: NavProps) {
             </a>
           ))}
         </nav>
-        <div className="ml-auto flex shrink-0 items-center gap-2 lg:ml-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2 xl:ml-2">
           <a
             href={p.langHref}
             hrefLang={p.langCode}
