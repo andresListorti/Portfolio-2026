@@ -18,8 +18,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 72,
-          background: "radial-gradient(circle at 20% 0%, #064e3b 0%, #09090b 55%)",
-          color: "#f4f4f5",
+          background: "radial-gradient(circle at 80% 10%, #123a3a 0%, #070A12 55%)",
+          color: "#E7EAF3",
         }}
       >
         <div
@@ -28,8 +28,8 @@ export default function OpengraphImage() {
             width: 88,
             height: 88,
             borderRadius: 20,
-            background: "#f4f4f5",
-            color: "#09090b",
+            background: "#F5B544",
+            color: "#070A12",
             fontSize: 30,
             fontWeight: 700,
             alignItems: "center",
@@ -40,8 +40,8 @@ export default function OpengraphImage() {
         </div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: -2 }}>{NAME}</div>
-          <div style={{ marginTop: 16, fontSize: 34, color: "#34d399" }}>{ROLE}</div>
-          <div style={{ marginTop: 28, fontSize: 26, color: "#a1a1aa" }}>
+          <div style={{ marginTop: 16, fontSize: 34, color: "#5EEAD4" }}>{ROLE}</div>
+          <div style={{ marginTop: 28, fontSize: 26, color: "#8B93A7" }}>
             Next.js · Node · Java/Spring · AI code review · Buenos Aires
           </div>
         </div>

@@ -2,101 +2,101 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Theme tokens (RGB triplets so Tailwind can apply alpha). Dark is the default. */
+/*
+  "Orchestrator's console" tokens (RGB triplets so Tailwind can apply alpha).
+  Two accents with a job each: trace (cyan) is machine output, verdict (amber) is human judgment.
+*/
 :root {
-  --bg: 248 248 246;
-  --surface: 255 255 255;
-  --line: 226 226 222;
-  --fg: 17 17 19;
-  --muted: 88 90 98;
-  --accent: 5 150 105;
-  --accent2: 8 145 178;
-  color-scheme: light;
-}
-
-.dark {
-  --bg: 9 9 11;
-  --surface: 20 20 24;
-  --line: 39 39 46;
-  --fg: 244 244 245;
-  --muted: 161 161 170;
-  --accent: 52 211 153;
-  --accent2: 34 211 238;
+  --ink: 7 10 18;        /* #070A12 page */
+  --panel: 14 19 34;     /* #0E1322 raised surfaces */
+  --line: 29 37 56;      /* #1D2538 hairlines */
+  --fg: 231 234 243;     /* #E7EAF3 text */
+  --muted: 139 147 167;  /* #8B93A7 secondary text */
+  --trace: 94 234 212;   /* #5EEAD4 agent output */
+  --verdict: 245 181 68; /* #F5B544 human approval */
+  --reject: 251 113 133; /* #FB7185 rejected by review */
   color-scheme: dark;
 }
 
 html {
-  scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
 
 body {
-  @apply bg-bg text-fg font-sans antialiased;
+  @apply bg-ink font-sans text-fg antialiased;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: rgb(var(--accent) / 0.3);
+  background: rgb(var(--verdict) / 0.3);
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--verdict));
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 @layer components {
-  .card {
-    @apply rounded-2xl border border-line bg-surface/70 backdrop-blur-sm;
-  }
-  .chip {
-    @apply inline-flex items-center rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted;
-  }
-  .eyebrow {
-    @apply font-mono text-xs uppercase tracking-[0.2em] text-accent;
+  .panel {
+    @apply rounded-lg border border-line bg-panel/80;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent;
+    @apply inline-flex items-center gap-2 rounded-md px-5 py-3 text-sm font-medium transition;
   }
-  .btn-primary {
-    @apply btn bg-fg text-bg hover:opacity-90;
+  .btn-verdict {
+    @apply btn bg-verdict text-ink hover:bg-verdict/90;
   }
-  .btn-ghost {
-    @apply btn border border-line text-fg hover:border-fg/40;
+  .btn-line {
+    @apply btn border border-line text-fg hover:border-fg/40 hover:bg-panel;
+  }
+  .tag {
+    @apply inline-flex items-center rounded border border-line px-2 py-0.5 font-mono text-[11px] text-muted;
   }
   .code-block {
-    @apply overflow-x-auto rounded-xl border border-line bg-bg/80 p-4 font-mono text-[12px] leading-relaxed text-fg/90;
+    @apply overflow-x-auto rounded-md border border-line bg-ink p-4 font-mono text-[12px] leading-relaxed text-fg/90;
     tab-size: 2;
   }
-  .text-gradient {
-    background: linear-gradient(90deg, rgb(var(--accent)), rgb(var(--accent2)));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
 
-/* Subtle grid + glow behind the hero */
-.hero-bg {
-  background-image:
-    radial-gradient(60rem 30rem at 50% -10%, rgb(var(--accent) / 0.16), transparent 60%),
-    linear-gradient(rgb(var(--line) / 0.5) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(var(--line) / 0.5) 1px, transparent 1px);
-  background-size: auto, 48px 48px, 48px 48px;
-  mask-image: linear-gradient(to bottom, black 55%, transparent);
+/* Fine film grain over everything, kept very faint */
+.grain::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Reveal-on-load motion, disabled for users who prefer less motion */
-@keyframes rise {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: none; }
+@keyframes caret {
+  50% { opacity: 0; }
 }
-.rise { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
-.rise-1 { animation-delay: 0.08s; }
-.rise-2 { animation-delay: 0.16s; }
-.rise-3 { animation-delay: 0.24s; }
+.caret {
+  animation: caret 1s steps(1) infinite;
+}
 
-@keyframes pulse-dot {
-  0%, 100% { box-shadow: 0 0 0 0 rgb(var(--accent) / 0.6); }
-  50% { box-shadow: 0 0 0 6px rgb(var(--accent) / 0); }
+/* Single page-load moment: the hero text settles, then the console arrives */
+@keyframes hero-in {
+  from { opacity: 0; transform: translateY(18px); filter: blur(6px); }
+  to { opacity: 1; transform: none; filter: none; }
 }
-.live-dot { animation: pulse-dot 2s infinite; }
+.hero-in { animation: hero-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hero-in-late { animation-delay: 0.35s; }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .rise, .live-dot { animation: none; }
+  .caret, .hero-in { animation: none; }
 }

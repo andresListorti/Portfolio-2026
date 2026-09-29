@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import type React from "react";
 import { NAME, SITE_URL, content, type Locale } from "./data";
 import "./globals.css";
 
-const sans = Geist({ subsets: ["latin"], variable: "--font-sans" });
-const mono = Geist_Mono({ subsets: ["latin"], variable: "--font-mono" });
+const sans = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-sans" });
+const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export function buildMetadata(locale: Locale): Metadata {
   const { title, description, ogLocale } = content[locale].meta;
@@ -30,22 +30,14 @@ export function buildMetadata(locale: Locale): Metadata {
 }
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#09090b" },
-    { media: "(prefers-color-scheme: light)", color: "#f8f8f6" },
-  ],
+  themeColor: "#070A12",
+  colorScheme: "dark",
 };
-
-// Runs before paint so the saved theme applies without a flash. Dark is the default.
-const themeScript = `try{if(localStorage.getItem('theme')!=='light')document.documentElement.classList.add('dark')}catch(e){document.documentElement.classList.add('dark')}`;
 
 export function RootShell({ locale, children }: { locale: Locale; children: React.ReactNode }) {
   return (
-    <html lang={locale} suppressHydrationWarning className={`${sans.variable} ${mono.variable}`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-      </head>
-      <body>{children}</body>
+    <html lang={locale} className={`${sans.variable} ${mono.variable}`}>
+      <body className="grain">{children}</body>
     </html>
   );
 }

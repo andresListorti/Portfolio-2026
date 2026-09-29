@@ -1,3 +1,6 @@
+import type { ConsoleCopy } from "./components/orchestrator-console";
+import type { PipelineCopy } from "./components/pipeline";
+
 export const SITE_URL = "https://andres-listorti-2026.vercel.app";
 export const NAME = "Andrés Antonio Listorti";
 
@@ -10,7 +13,8 @@ export const links = {
   github: "https://github.com/andresListorti",
   linkedin: "https://www.linkedin.com/in/andres-listorti-177485240/",
   email: "andreslistorti@gmail.com",
-  resume: "https://drive.google.com/file/d/1gT6qb8uN27dUFiHbApDt9nQKaFXvS_nW/view?usp=drive_link",
+  resume: "/Andres-Listorti-Resume-2026.pdf",
+  whatsapp: "https://wa.me/5491125326630",
 };
 
 export type CaseStudy = {
@@ -128,10 +132,6 @@ type Content = {
     email: string;
     resume: string;
     location: string;
-    reviewFile: string;
-    reviewItems: { ok: boolean; text: string; note?: string }[];
-    reviewCaption: string;
-    reviewAria: string;
   };
   about: {
     eyebrow: string;
@@ -140,7 +140,14 @@ type Content = {
     p2: string;
     tiles: { label: string; value: string; sub?: string }[];
   };
-  ai: { eyebrow: string; title: string; items: { title: string; body: string }[] };
+  console: ConsoleCopy;
+  pipeline: PipelineCopy & { eyebrow: string; title: string; intro: string };
+  lab: {
+    eyebrow: string;
+    title: string;
+    intro: string;
+    items: { name: string; kind: string; body: string; stack: string[]; href?: string; linkLabel?: string }[];
+  };
   reviews: {
     eyebrow: string;
     title: string;
@@ -181,7 +188,14 @@ type Content = {
     education: { title: string; org: string; period: string }[];
   };
   stack: { eyebrow: string; title: string; groups: { group: string; items: string[] }[] };
-  contact: { eyebrow: string; title: string; body: string; upwork: string };
+  contact: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    upwork: string;
+    resumeLabel: string;
+    channels: { label: string; value: string; href: string }[];
+  };
   footer: { built: string };
 };
 
@@ -201,18 +215,18 @@ const repos = {
 export const content: Record<Locale, Content> = {
   en: {
     meta: {
-      title: `${NAME} — Full-Stack Developer · AI-Native Engineer · Lawyer`,
+      title: `${NAME} — AI-Native Full-Stack Engineer & Lawyer`,
       description:
         "Full-stack developer (Next.js, Node, Java/Spring) and lawyer based in Buenos Aires. I ship end-to-end products and review AI-generated code with a lawyer's rigor.",
       ogLocale: "en_US",
     },
     nav: [
-      { href: "#about", label: "About" },
-      { href: "#ai", label: "AI" },
+      { href: "#process", label: "Process" },
+      { href: "#lab", label: "AI work" },
+      { href: "#work", label: "Projects" },
       { href: "#reviews", label: "Reviews" },
       { href: "#law", label: "AI + Law" },
-      { href: "#work", label: "Work" },
-      { href: "#experience", label: "Experience" },
+      { href: "#about", label: "About" },
       { href: "#contact", label: "Contact" },
     ],
     ui: {
@@ -225,22 +239,12 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Available for freelance & remote roles",
-      role: "Full-Stack Developer · AI-Native Engineer · Lawyer",
-      lead: "I ship end-to-end web products and review code, human or AI-written, with the rigor of 15 years reading contracts line by line.",
+      role: "AI-native full-stack engineer and lawyer",
+      lead: "I direct AI coding agents to ship full-stack products fast, and I review every line they write with the rigor of 15 years reading contracts.",
       upwork: "Hire me on Upwork",
       email: "Email",
       resume: "Resume",
       location: "Buenos Aires · GMT-3",
-      reviewFile: "review · checkout-webhook.ts",
-      reviewItems: [
-        { ok: true, text: "signature verified before parsing" },
-        { ok: true, text: "idempotent on retried events" },
-        { ok: true, text: "secrets read from env, never logged" },
-        { ok: false, text: "empty cart not handled", note: "→ fix + test" },
-        { ok: false, text: "O(n²) stock lookup", note: "→ use a Map" },
-      ],
-      reviewCaption: "How I read AI-generated code: like a pull request.",
-      reviewAria: "Example of how I review AI-generated code",
     },
     about: {
       eyebrow: "About",
@@ -254,26 +258,45 @@ export const content: Record<Locale, Content> = {
         { label: "Works with", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
     },
-    ai: {
+    console: {
+      ariaLabel: "Animated example of how I orchestrate AI coding agents and review their output",
+      title: "orchestrator.run",
+      agentsLabel: "Agents",
+      reviewLabel: "review",
+      approved: "approved",
+      returned: "returned",
+      idle: "idle",
+      working: "working",
+      tasks: [
+        { agent: "claude-code", task: "split the redesign into parallel tasks", log: ["wrote SPEC.md: 5 components, 1 owner each", "types first, no shared files"], verdict: "approved", note: "no two agents touch the same file" },
+        { agent: "muse-spark", task: "build the hero orchestration console", log: ["created orchestrator-console.tsx", "added reduced-motion fallback"], verdict: "approved", note: "pauses when off-screen" },
+        { agent: "codex", task: "mark order paid from webhook", log: ["reads x-signature header", "verifies only if header is present"], verdict: "returned", note: "a missing header must fail closed" },
+        { agent: "codex", task: "fix: always verify the signature", log: ["HMAC-SHA256 + timingSafeEqual", "400 when header is missing"], verdict: "approved", note: "fails closed now" },
+        { agent: "nemotron", task: "canvas neural field for the hero", log: ["≤ 90 nodes, links under 140px", "devicePixelRatio capped at 2"], verdict: "approved", note: "static frame for reduced motion" },
+        { agent: "claude-code", task: "reserve stock during checkout", log: ["read + check + write in one transaction", "30-minute reservation"], verdict: "approved", note: "no overselling under concurrency" },
+      ],
+    },
+    pipeline: {
       eyebrow: "How I work with AI",
-      title: "AI-native, with a reviewer's discipline.",
+      title: "I direct the agents. I sign off on the result.",
+      intro: "AI writes most of the first draft. My job is to make the task impossible to misread, route it to the right model, and refuse anything I wouldn't put my name on.",
+      progressLabel: "step",
+      steps: [
+        { name: "Brief", body: "Turn a request into a spec an agent can't misread: goal, constraints, files it may touch and what done looks like.", detail: ["SPEC.md + CLAUDE.md per project", "out-of-scope written down", "acceptance checks named up front"] },
+        { name: "Plan", body: "Choose the architecture and split the work into pieces that can run in parallel without colliding.", detail: ["one owner per file", "interfaces and types first", "pick the model per task"] },
+        { name: "Delegate", body: "Claude Code orchestrates. Implementation goes to the model that fits: Claude, Codex, or open models like Muse Spark and Nemotron through OpenCode.", detail: ["parallel agent sessions", "MCP tools: Vercel, Drive, image generation", "cheap models for boilerplate"] },
+        { name: "Review", body: "Nothing ships unread. Agent output gets reviewed like a pull request: correctness, edge cases, security and readability.", detail: ["tsc + build + tests must pass", "auth, secrets, webhooks checked by hand", "returned with notes when it falls short"] },
+        { name: "Ship", body: "Preview deploy per branch, checked in a real browser, then merged.", detail: ["Vercel preview on every push", "mobile + reduced-motion pass", "merge to main"] },
+      ],
+    },
+    lab: {
+      eyebrow: "Built with agents",
+      title: "Recent AI work.",
+      intro: "What I've shipped lately with AI agents in the loop, and how the work was split between them and me.",
       items: [
-        {
-          title: "AI-native, every day",
-          body: "I build with Claude Code, GitHub Copilot, OpenAI Codex and Cursor, and keep per-project agent instructions (CLAUDE.md) so the tools work from accurate context.",
-        },
-        {
-          title: "AI code, reviewed like a PR",
-          body: "Model output doesn't ship unread. I check correctness, edge cases, security (auth, secrets, webhook signatures), idempotency and readability first.",
-        },
-        {
-          title: "Products built on LLMs",
-          body: "I've shipped apps that call Gemini, OpenAI and Claude, stream responses, and keep a human approval step before an agent does anything public.",
-        },
-        {
-          title: "Precise technical writing",
-          body: "Fifteen years of legal drafting shows in my reviews, specs and READMEs: clear, structured and well argued, in English (C1) and Spanish.",
-        },
+        { name: "This portfolio", kind: "Multi-agent build, 2026", body: "I wrote the design spec and split it by file. Claude Code orchestrated; the hero console and scroll sequence went to Muse Spark, the canvas field and code viewer to Nemotron, both through OpenCode over MCP. I reviewed, type-checked and built every file before merging.", stack: ["Claude Code", "OpenCode", "MCP", "Next.js", "Motion"], href: "https://github.com/andresListorti/Portfolio-2026", linkLabel: "Source" },
+        { name: "Digital Assistant", kind: "AI agent SaaS, 2026", body: "An agent that drafts Instagram posts and images with Gemini, OpenAI or Claude, schedules them and handles the inbox, but never publishes without a human approval.", stack: ["LLM APIs", "Agents", "Node.js", "Meta Graph API"], href: "https://digitalassistant.com.ar", linkLabel: "Product site" },
+        { name: "Agent workstation", kind: "Daily setup", body: "Claude Code as orchestrator, with MCP connectors for Vercel, Google Drive, image generation and a local ComfyUI, plus OpenCode to route routine tasks to open models and keep costs down.", stack: ["Claude Code", "MCP", "OpenCode", "ComfyUI"] },
       ],
     },
     reviews: {
@@ -496,26 +519,34 @@ export const content: Record<Locale, Content> = {
     contact: {
       eyebrow: "Contact",
       title: "Have a product to build or code to review?",
-      body: "The fastest way to work with me is Upwork. For anything else, email me.",
+      body: "Pick whichever channel suits you. I answer in English or Spanish, usually within a day.",
       upwork: "Upwork profile",
+      resumeLabel: "Download resume (PDF)",
+      channels: [
+        { label: "Email", value: "andreslistorti@gmail.com", href: "mailto:andreslistorti@gmail.com" },
+        { label: "LinkedIn", value: "in/andres-listorti", href: links.linkedin },
+        { label: "GitHub", value: "andresListorti", href: links.github },
+        { label: "Upwork", value: "Freelancer profile", href: links.upwork },
+        { label: "WhatsApp", value: "+54 9 11 2532-6630", href: links.whatsapp },
+      ],
     },
-    footer: { built: "Built with Next.js · Deployed on Vercel" },
+    footer: { built: "Orchestrated with Claude Code, built with Next.js, deployed on Vercel." },
   },
 
   es: {
     meta: {
-      title: `${NAME} — Desarrollador Full-Stack · Ingeniero AI-Native · Abogado`,
+      title: `${NAME} — Ingeniero Full-Stack AI-Native y Abogado`,
       description:
         "Desarrollador full-stack (Next.js, Node, Java/Spring) y abogado en Buenos Aires. Construyo productos de punta a punta y reviso código generado por IA con rigor de abogado.",
       ogLocale: "es_AR",
     },
     nav: [
-      { href: "#about", label: "Sobre mí" },
-      { href: "#ai", label: "IA" },
+      { href: "#process", label: "Proceso" },
+      { href: "#lab", label: "IA" },
+      { href: "#work", label: "Proyectos" },
       { href: "#reviews", label: "Revisiones" },
       { href: "#law", label: "IA + Derecho" },
-      { href: "#work", label: "Proyectos" },
-      { href: "#experience", label: "Experiencia" },
+      { href: "#about", label: "Sobre mí" },
       { href: "#contact", label: "Contacto" },
     ],
     ui: {
@@ -528,22 +559,12 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Disponible para freelance y roles remotos",
-      role: "Desarrollador Full-Stack · Ingeniero AI-Native · Abogado",
-      lead: "Construyo productos web de punta a punta y reviso código, escrito por personas o por IA, con el rigor de 15 años leyendo contratos línea por línea.",
+      role: "Ingeniero full-stack AI-native y abogado",
+      lead: "Dirijo agentes de IA para construir productos full-stack rápido, y reviso cada línea que escriben con el rigor de 15 años leyendo contratos.",
       upwork: "Contratame en Upwork",
       email: "Email",
       resume: "CV",
       location: "Buenos Aires · GMT-3",
-      reviewFile: "revisión · checkout-webhook.ts",
-      reviewItems: [
-        { ok: true, text: "firma verificada antes de parsear" },
-        { ok: true, text: "idempotente ante reintentos" },
-        { ok: true, text: "secretos desde env, nunca en logs" },
-        { ok: false, text: "carrito vacío sin manejar", note: "→ fix + test" },
-        { ok: false, text: "búsqueda de stock O(n²)", note: "→ usar un Map" },
-      ],
-      reviewCaption: "Cómo leo código generado por IA: como un pull request.",
-      reviewAria: "Ejemplo de cómo reviso código generado por IA",
     },
     about: {
       eyebrow: "Sobre mí",
@@ -557,26 +578,45 @@ export const content: Record<Locale, Content> = {
         { label: "Trabajo con", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
     },
-    ai: {
+    console: {
+      ariaLabel: "Ejemplo animado de cómo orquesto agentes de IA y reviso lo que producen",
+      title: "orchestrator.run",
+      agentsLabel: "Agentes",
+      reviewLabel: "revisión",
+      approved: "aprobado",
+      returned: "devuelto",
+      idle: "libre",
+      working: "trabajando",
+      tasks: [
+        { agent: "claude-code", task: "dividir el rediseño en tareas paralelas", log: ["escribió SPEC.md: 5 componentes, 1 dueño c/u", "tipos primero, sin archivos compartidos"], verdict: "approved", note: "ningún archivo lo tocan dos agentes" },
+        { agent: "muse-spark", task: "construir la consola del hero", log: ["creó orchestrator-console.tsx", "agregó modo sin animación"], verdict: "approved", note: "se pausa fuera de pantalla" },
+        { agent: "codex", task: "marcar orden pagada desde el webhook", log: ["lee el header x-signature", "verifica sólo si el header existe"], verdict: "returned", note: "sin header tiene que rechazar" },
+        { agent: "codex", task: "fix: verificar siempre la firma", log: ["HMAC-SHA256 + timingSafeEqual", "400 si falta el header"], verdict: "approved", note: "ahora falla cerrado" },
+        { agent: "nemotron", task: "red neuronal en canvas para el hero", log: ["≤ 90 nodos, enlaces < 140px", "devicePixelRatio limitado a 2"], verdict: "approved", note: "frame estático sin animación" },
+        { agent: "claude-code", task: "reservar stock durante el checkout", log: ["leer + validar + escribir en una transacción", "reserva de 30 minutos"], verdict: "approved", note: "sin sobreventa con concurrencia" },
+      ],
+    },
+    pipeline: {
       eyebrow: "Cómo trabajo con IA",
-      title: "AI-native, con disciplina de revisor.",
+      title: "Yo dirijo a los agentes. Yo firmo el resultado.",
+      intro: "La IA escribe la mayor parte del primer borrador. Mi trabajo es que la tarea no se pueda malinterpretar, mandarla al modelo indicado y rechazar todo lo que no firmaría con mi nombre.",
+      progressLabel: "paso",
+      steps: [
+        { name: "Brief", body: "Convierto un pedido en una especificación que un agente no pueda malinterpretar: objetivo, restricciones, archivos que puede tocar y cuándo está terminado.", detail: ["SPEC.md + CLAUDE.md por proyecto", "lo que queda afuera, por escrito", "criterios de aceptación desde el inicio"] },
+        { name: "Plan", body: "Elijo la arquitectura y divido el trabajo en partes que puedan correr en paralelo sin chocar.", detail: ["un dueño por archivo", "interfaces y tipos primero", "el modelo adecuado para cada tarea"] },
+        { name: "Delegar", body: "Claude Code orquesta. La implementación va al modelo que corresponde: Claude, Codex o modelos abiertos como Muse Spark y Nemotron vía OpenCode.", detail: ["sesiones de agentes en paralelo", "herramientas MCP: Vercel, Drive, imágenes", "modelos baratos para lo repetitivo"] },
+        { name: "Revisar", body: "Nada se publica sin leerlo. Reviso lo que producen los agentes como un pull request: que sea correcto, casos límite, seguridad y legibilidad.", detail: ["tsc + build + tests tienen que pasar", "auth, secretos y webhooks, a mano", "se devuelve con notas si no alcanza"] },
+        { name: "Publicar", body: "Deploy de preview por rama, probado en un navegador real y después merge.", detail: ["preview de Vercel en cada push", "prueba en mobile y sin animaciones", "merge a main"] },
+      ],
+    },
+    lab: {
+      eyebrow: "Hecho con agentes",
+      title: "Trabajo reciente con IA.",
+      intro: "Lo último que publiqué con agentes de IA en el circuito, y cómo se repartió el trabajo entre ellos y yo.",
       items: [
-        {
-          title: "IA todos los días",
-          body: "Desarrollo con Claude Code, GitHub Copilot, OpenAI Codex y Cursor, y mantengo instrucciones por proyecto para los agentes (CLAUDE.md) para que trabajen con contexto preciso.",
-        },
-        {
-          title: "Código de IA, revisado como un PR",
-          body: "Lo que genera un modelo no se publica sin leerlo. Primero reviso que sea correcto, los casos límite, la seguridad (auth, secretos, firmas de webhooks), la idempotencia y la legibilidad.",
-        },
-        {
-          title: "Productos sobre LLMs",
-          body: "Publiqué apps que usan Gemini, OpenAI y Claude, con respuestas en streaming y un paso de aprobación humana antes de que un agente haga algo público.",
-        },
-        {
-          title: "Escritura técnica precisa",
-          body: "Quince años de redacción legal se notan en mis revisiones, especificaciones y READMEs: claros, ordenados y bien argumentados, en inglés (C1) y en español.",
-        },
+        { name: "Este portfolio", kind: "Desarrollo multiagente, 2026", body: "Escribí la especificación de diseño y la dividí por archivo. Claude Code orquestó; la consola del hero y la secuencia de scroll fueron a Muse Spark, y el canvas y el visor de código a Nemotron, ambos vía OpenCode por MCP. Revisé, validé tipos y compilé cada archivo antes del merge.", stack: ["Claude Code", "OpenCode", "MCP", "Next.js", "Motion"], href: "https://github.com/andresListorti/Portfolio-2026", linkLabel: "Código" },
+        { name: "Digital Assistant", kind: "SaaS con agentes de IA, 2026", body: "Un agente que redacta publicaciones e imágenes para Instagram con Gemini, OpenAI o Claude, las programa y atiende la bandeja, pero nunca publica sin aprobación humana.", stack: ["APIs de LLM", "Agentes", "Node.js", "Meta Graph API"], href: "https://digitalassistant.com.ar", linkLabel: "Sitio del producto" },
+        { name: "Estación de agentes", kind: "Mi entorno diario", body: "Claude Code como orquestador, con conectores MCP para Vercel, Google Drive, generación de imágenes y un ComfyUI local, más OpenCode para mandar tareas rutinarias a modelos abiertos y bajar costos.", stack: ["Claude Code", "MCP", "OpenCode", "ComfyUI"] },
       ],
     },
     reviews: {
@@ -799,9 +839,17 @@ export const content: Record<Locale, Content> = {
     contact: {
       eyebrow: "Contacto",
       title: "¿Tenés un producto para construir o código para revisar?",
-      body: "La forma más rápida de trabajar conmigo es Upwork. Para cualquier otra cosa, escribime por email.",
+      body: "Elegí el canal que te quede más cómodo. Respondo en español o inglés, normalmente en el día.",
       upwork: "Perfil de Upwork",
+      resumeLabel: "Descargar CV (PDF)",
+      channels: [
+        { label: "Email", value: "andreslistorti@gmail.com", href: "mailto:andreslistorti@gmail.com" },
+        { label: "LinkedIn", value: "in/andres-listorti", href: links.linkedin },
+        { label: "GitHub", value: "andresListorti", href: links.github },
+        { label: "Upwork", value: "Perfil freelance", href: links.upwork },
+        { label: "WhatsApp", value: "+54 9 11 2532-6630", href: links.whatsapp },
+      ],
     },
-    footer: { built: "Hecho con Next.js · Publicado en Vercel" },
+    footer: { built: "Orquestado con Claude Code, hecho con Next.js, publicado en Vercel." },
   },
 };

@@ -1,45 +1,79 @@
-import { ArrowUpRight, Briefcase, FileText, Github, Languages, Linkedin, Lock, Mail, MapPin, Scale } from "lucide-react";
+import { ArrowUpRight, Download, FileText, Github, Linkedin, Lock, Mail, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import type React from "react";
+import NeuralField from "./components/neural-field";
+import OrchestratorConsole from "./components/orchestrator-console";
+import Pipeline from "./components/pipeline";
+import ReviewDiff from "./components/review-diff";
+import SiteNav from "./components/site-nav";
+import SmoothScroll from "./components/smooth-scroll";
 import { NAME, SITE_URL, content, links, localePath, type Locale, type Project } from "./data";
-import ThemeToggle from "./theme-toggle";
 
 function External({
   href,
   children,
   className,
+  label,
 }: {
   href: string;
   children: React.ReactNode;
   className?: string;
+  label?: string;
 }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className={className}>
+    <a href={href} target="_blank" rel="noopener noreferrer" className={className} aria-label={label}>
       {children}
     </a>
   );
 }
 
+// Each section is addressed like a directory in the console metaphor: ~/process, ~/work...
 function Section({
   id,
-  eyebrow,
   title,
   intro,
   children,
+  className = "",
 }: {
   id: string;
-  eyebrow: string;
   title: string;
   intro?: string;
   children: React.ReactNode;
+  className?: string;
 }) {
   return (
-    <section id={id} className="mx-auto max-w-page px-4 py-16 sm:px-6 md:py-20">
-      <p className="eyebrow">{eyebrow}</p>
-      <h2 className="mt-3 max-w-2xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{title}</h2>
-      {intro && <p className="mt-4 max-w-3xl leading-relaxed text-muted">{intro}</p>}
-      <div className="mt-10">{children}</div>
+    <section id={id} className={`border-t border-line/60 py-20 md:py-28 ${className}`}>
+      <div className="mx-auto max-w-page px-4 sm:px-6">
+        <div className="grid gap-4 md:grid-cols-[10rem_1fr] md:gap-10">
+          <p className="pt-2 font-mono text-[13px] text-trace/80" aria-hidden>
+            ~/{id}
+          </p>
+          <div>
+            <h2 className="max-w-3xl text-4xl font-semibold leading-[1.05] tracking-tight text-balance sm:text-5xl">
+              {title}
+            </h2>
+            {intro && <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted">{intro}</p>}
+          </div>
+        </div>
+      </div>
+      <div className="mt-12 md:mt-16">{children}</div>
     </section>
+  );
+}
+
+function Inner({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return <div className={`mx-auto max-w-page px-4 sm:px-6 ${className}`}>{children}</div>;
+}
+
+function Tags({ items }: { items: string[] }) {
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {items.map((s) => (
+        <span key={s} className="tag">
+          {s}
+        </span>
+      ))}
+    </div>
   );
 }
 
@@ -47,33 +81,20 @@ function ProjectLinks({ p, t }: { p: Project; t: (typeof content)[Locale]["work"
   return (
     <div className="flex flex-wrap items-center gap-2">
       {p.live && (
-        <External href={p.live} className="btn-ghost !px-4 !py-2">
+        <External href={p.live} className="btn-line !px-4 !py-2">
           {p.isPrivate ? t.productSite : t.live} <ArrowUpRight className="h-4 w-4" />
         </External>
       )}
       {p.code && (
-        <External href={p.code} className="btn-ghost !px-4 !py-2">
+        <External href={p.code} className="btn-line !px-4 !py-2">
           <Github className="h-4 w-4" /> {t.code}
         </External>
       )}
       {p.isPrivate && (
-        <span className="chip gap-1.5">
+        <span className="tag gap-1.5">
           <Lock className="h-3 w-3" /> {t.privateNote}
         </span>
       )}
-    </div>
-  );
-}
-
-function CodeBlock({ label, code, tone }: { label: string; code: string; tone: "bad" | "good" }) {
-  return (
-    <div className="min-w-0">
-      <p className={`font-mono text-[11px] uppercase tracking-[0.18em] ${tone === "bad" ? "text-amber-500" : "text-accent"}`}>
-        {label}
-      </p>
-      <pre className="code-block mt-2">
-        <code>{code}</code>
-      </pre>
     </div>
   );
 }
@@ -84,7 +105,7 @@ function jsonLd() {
     "@type": "Person",
     name: NAME,
     url: SITE_URL,
-    jobTitle: ["Full-Stack Developer", "Lawyer"],
+    jobTitle: ["AI-Native Software Engineer", "Full-Stack Developer", "Lawyer"],
     email: `mailto:${links.email}`,
     address: { "@type": "PostalAddress", addressLocality: "Buenos Aires", addressCountry: "AR" },
     alumniOf: [
@@ -92,7 +113,7 @@ function jsonLd() {
       { "@type": "EducationalOrganization", name: "Coderhouse" },
     ],
     knowsLanguage: ["en", "es"],
-    knowsAbout: ["Next.js", "React", "Node.js", "TypeScript", "Java", "Spring Boot", "Code review", "AI agents", "Business law"],
+    knowsAbout: ["AI agents", "Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java", "Spring Boot", "Code review", "Business law"],
     sameAs: [links.upwork, links.github, links.linkedin],
   };
 }
@@ -108,359 +129,332 @@ export default function Home({ locale }: { locale: Locale }) {
         // Static data defined in this repo; no user input.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd()) }}
       />
-
-      {/* Nav */}
-      <header className="fixed inset-x-0 top-0 z-50 border-b border-line/60 bg-bg/70 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-page items-center gap-4 px-4 sm:px-6">
-          <a href="#top" className="flex items-center gap-2.5" aria-label={`${NAME}, ${t.ui.toTop}`}>
-            <span className="grid h-8 w-8 place-items-center rounded-lg bg-fg font-mono text-[11px] font-bold text-bg">
-              AAL
-            </span>
-            <span className="hidden text-sm font-medium sm:inline lg:hidden xl:inline">{NAME}</span>
-          </a>
-          <nav className="ml-auto hidden items-center gap-5 text-sm text-muted lg:flex" aria-label={t.ui.sectionsLabel}>
-            {t.nav.map((n) => (
-              <a key={n.href} href={n.href} className="transition hover:text-fg">
-                {n.label}
-              </a>
-            ))}
-          </nav>
-          <div className="ml-auto flex items-center gap-2 lg:ml-4">
-            <a
-              href={localePath(other)}
-              hrefLang={other}
-              aria-label={t.ui.langSwitchLabel}
-              className="inline-flex h-9 items-center gap-1.5 rounded-full border border-line px-3 font-mono text-xs text-muted transition hover:text-fg"
-            >
-              <Languages className="h-3.5 w-3.5" /> {t.ui.langSwitch}
-            </a>
-            <ThemeToggle label={t.ui.themeLabel} />
-            <External href={links.upwork} className="btn-primary !px-4 !py-2">
-              {t.ui.hireMe}
-            </External>
-          </div>
-        </div>
-      </header>
+      <SmoothScroll />
+      <SiteNav
+        items={t.nav}
+        sectionsLabel={t.ui.sectionsLabel}
+        topLabel={`${NAME}, ${t.ui.toTop}`}
+        hireMe={t.ui.hireMe}
+        hireHref={links.upwork}
+        resumeHref={links.resume}
+        resumeLabel={t.contact.resumeLabel}
+        langHref={localePath(other)}
+        langLabel={t.ui.langSwitch}
+        langSwitchLabel={t.ui.langSwitchLabel}
+        langCode={other}
+      />
 
       <main id="top">
-        {/* Hero */}
+        {/* Hero: the orchestration console is the one loud element on the page */}
         <section className="relative overflow-hidden pt-16">
-          <div className="hero-bg pointer-events-none absolute inset-0" aria-hidden />
-          <div className="relative mx-auto grid max-w-page items-center gap-12 px-4 pb-16 pt-16 sm:px-6 md:pb-24 md:pt-28 lg:grid-cols-[1fr_23rem]">
-            <div>
-              <p className="rise inline-flex items-center gap-2 rounded-full border border-line bg-surface/60 px-3 py-1 text-xs text-muted">
-                <span className="live-dot h-2 w-2 rounded-full bg-accent" /> {t.hero.badge}
+          <NeuralField className="pointer-events-none absolute inset-0 opacity-70" />
+          <div
+            className="pointer-events-none absolute inset-0"
+            style={{ background: "radial-gradient(70rem 40rem at 70% 40%, transparent 30%, rgb(var(--ink)) 85%)" }}
+            aria-hidden
+          />
+          <div className="relative mx-auto grid max-w-page items-center gap-12 px-4 pb-20 pt-14 sm:px-6 md:pt-24 lg:min-h-[calc(100svh-4rem)] lg:grid-cols-[1fr_1.1fr] lg:pb-24">
+            <div className="hero-in">
+              <p className="inline-flex items-center gap-2 text-sm text-muted">
+                <span className="h-2 w-2 rounded-full bg-verdict shadow-[0_0_12px_rgb(var(--verdict))]" aria-hidden />
+                {t.hero.badge}
               </p>
-              <h1 className="rise rise-1 mt-6 text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-balance sm:text-6xl md:text-7xl">
+              <h1 className="mt-6 text-[3.1rem] font-semibold leading-[0.95] tracking-[-0.035em] text-balance sm:text-7xl lg:text-[4.1rem] xl:text-[4.6rem]">
                 {NAME}
               </h1>
-              <p className="rise rise-2 mt-4 font-mono text-sm text-gradient sm:text-base">{t.hero.role}</p>
-              <p className="rise rise-2 mt-6 max-w-2xl text-lg text-muted text-balance sm:text-xl">{t.hero.lead}</p>
-              <div className="rise rise-3 mt-9 flex flex-wrap gap-3">
-                <External href={links.upwork} className="btn-primary">
-                  <Briefcase className="h-4 w-4" /> {t.hero.upwork}
+              <p className="mt-5 text-xl font-medium text-fg/85 sm:text-2xl">{t.hero.role}</p>
+              <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{t.hero.lead}</p>
+              <div className="mt-9 flex flex-wrap gap-3">
+                <External href={links.upwork} className="btn-verdict">
+                  {t.hero.upwork}
                 </External>
-                <a href={`mailto:${links.email}`} className="btn-ghost">
+                <a href={`mailto:${links.email}`} className="btn-line">
                   <Mail className="h-4 w-4" /> {t.hero.email}
                 </a>
-                <External href={links.resume} className="btn-ghost">
+                <External href={links.resume} className="btn-line">
                   <FileText className="h-4 w-4" /> {t.hero.resume}
                 </External>
               </div>
-              <div className="rise rise-3 mt-6 flex items-center gap-2">
-                <External href={links.github} className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition hover:text-fg">
+              <div className="mt-7 flex items-center gap-2 text-muted">
+                <External href={links.github} label="GitHub" className="grid h-10 w-10 place-items-center rounded-md border border-line transition hover:text-fg">
                   <Github className="h-4 w-4" />
-                  <span className="sr-only">GitHub</span>
                 </External>
-                <External href={links.linkedin} className="grid h-10 w-10 place-items-center rounded-full border border-line text-muted transition hover:text-fg">
+                <External href={links.linkedin} label="LinkedIn" className="grid h-10 w-10 place-items-center rounded-md border border-line transition hover:text-fg">
                   <Linkedin className="h-4 w-4" />
-                  <span className="sr-only">LinkedIn</span>
                 </External>
-                <span className="ml-2 inline-flex items-center gap-1.5 text-sm text-muted">
-                  <MapPin className="h-4 w-4" /> {t.hero.location}
-                </span>
+                <External href={links.whatsapp} label="WhatsApp" className="grid h-10 w-10 place-items-center rounded-md border border-line transition hover:text-fg">
+                  <MessageCircle className="h-4 w-4" />
+                </External>
+                <span className="ml-3 font-mono text-xs">{t.hero.location}</span>
               </div>
             </div>
-
-            {/* Illustrates the practice, not a real PR */}
-            <figure className="rise rise-3 card hidden overflow-hidden font-mono text-[13px] lg:block" aria-label={t.hero.reviewAria}>
-              <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
-                <span className="h-2.5 w-2.5 rounded-full bg-fg/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-fg/15" />
-                <span className="h-2.5 w-2.5 rounded-full bg-fg/15" />
-                <span className="ml-2 text-xs text-muted">{t.hero.reviewFile}</span>
-              </div>
-              <ul className="space-y-2.5 p-5 leading-relaxed">
-                {t.hero.reviewItems.map((r) => (
-                  <li key={r.text}>
-                    <span className={r.ok ? "text-accent" : "text-amber-500"}>{r.ok ? "✓" : "!"}</span> {r.text}
-                    {r.note && <span className="text-muted"> {r.note}</span>}
-                  </li>
-                ))}
-              </ul>
-              <figcaption className="border-t border-line px-5 py-3 font-sans text-xs text-muted">{t.hero.reviewCaption}</figcaption>
-            </figure>
+            <div className="hero-in hero-in-late">
+              <OrchestratorConsole copy={t.console} />
+            </div>
           </div>
         </section>
 
-        {/* About — bento */}
-        <Section id="about" eyebrow={t.about.eyebrow} title={t.about.title}>
-          <div className="grid gap-4 md:grid-cols-6">
-            <div className="card p-6 md:col-span-4 md:row-span-2">
-              <p className="text-lg leading-relaxed text-fg/90">{t.about.p1}</p>
-              <p className="mt-4 leading-relaxed text-muted">{t.about.p2}</p>
-            </div>
-            {t.about.tiles.map((tile, i) => (
-              <div key={tile.label} className={`card p-6 ${i < 2 ? "md:col-span-2" : "md:col-span-3"}`}>
-                <p className="font-mono text-xs text-muted">{tile.label}</p>
-                <p className={`mt-2 ${tile.sub ? "text-2xl font-semibold" : "text-lg font-medium"}`}>{tile.value}</p>
-                {tile.sub && <p className="mt-1 text-sm text-muted">{tile.sub}</p>}
-              </div>
-            ))}
-          </div>
+        {/* Process */}
+        <Section id="process" title={t.pipeline.title} intro={t.pipeline.intro}>
+          <Pipeline copy={t.pipeline} />
         </Section>
 
-        {/* AI */}
-        <Section id="ai" eyebrow={t.ai.eyebrow} title={t.ai.title}>
-          <div className="grid gap-4 sm:grid-cols-2">
-            {t.ai.items.map((a, i) => (
-              <div key={a.title} className="card group p-6 transition hover:border-accent/50">
-                <span className="font-mono text-xs text-accent">0{i + 1}</span>
-                <h3 className="mt-3 text-lg font-semibold">{a.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{a.body}</p>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        {/* Code review samples */}
-        <Section id="reviews" eyebrow={t.reviews.eyebrow} title={t.reviews.title} intro={t.reviews.intro}>
-          <div className="space-y-6">
-            {t.reviews.items.map((r, i) => (
-              <article key={r.file} className="card overflow-hidden">
-                <header className="flex flex-wrap items-center gap-x-3 gap-y-1 border-b border-line px-5 py-3 sm:px-6">
-                  <span className="font-mono text-xs text-accent">#{i + 1}</span>
-                  <h3 className="font-mono text-sm font-semibold">{r.file}</h3>
-                  <span className="chip">{r.lang}</span>
-                  <External href={r.repoUrl} className="ml-auto inline-flex items-center gap-1 text-xs text-muted transition hover:text-fg">
-                    {t.reviews.source}: {r.repo} <ArrowUpRight className="h-3.5 w-3.5" />
-                  </External>
-                </header>
-                <div className="grid gap-6 p-5 sm:p-6 lg:grid-cols-2">
-                  <div className="min-w-0 space-y-5">
+        {/* Recent AI work */}
+        <Section id="lab" title={t.lab.title} intro={t.lab.intro}>
+          <Inner>
+            <ul className="border-t border-line">
+              {t.lab.items.map((item) => (
+                <li key={item.name} className="grid gap-4 border-b border-line py-8 md:grid-cols-[10rem_1fr] md:gap-10">
+                  <p className="font-mono text-xs text-muted md:pt-2">{item.kind}</p>
+                  <div className="grid gap-5 lg:grid-cols-[1fr_16rem] lg:gap-10">
                     <div>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">{t.reviews.context}</p>
-                      <p className="mt-2 leading-relaxed text-fg/90">{r.context}</p>
+                      <h3 className="text-2xl font-semibold tracking-tight">{item.name}</h3>
+                      <p className="mt-3 max-w-2xl leading-relaxed text-fg/80">{item.body}</p>
                     </div>
-                    <CodeBlock label={t.reviews.before} code={r.before} tone="bad" />
-                    <div>
-                      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted">{t.reviews.issues}</p>
-                      <ul className="mt-2 space-y-2 text-sm">
-                        {r.issues.map((issue) => (
-                          <li key={issue} className="flex gap-2">
-                            <span className="mt-[0.1rem] font-mono text-amber-500">!</span>
-                            <span className="leading-relaxed text-fg/85">{issue}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    <div className="flex flex-col gap-4 lg:items-end">
+                      <div className="lg:justify-end">
+                        <Tags items={item.stack} />
+                      </div>
+                      {item.href && (
+                        <External href={item.href} className="inline-flex items-center gap-1 text-sm text-trace transition hover:text-fg">
+                          {item.linkLabel} <ArrowUpRight className="h-4 w-4" />
+                        </External>
+                      )}
                     </div>
                   </div>
-                  <div className="min-w-0 space-y-5">
-                    <CodeBlock label={t.reviews.after} code={r.after} tone="good" />
-                    <div className="rounded-xl border border-accent/30 bg-accent/[0.06] p-4">
-                      <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{t.reviews.why}</p>
-                      <p className="mt-2 text-sm leading-relaxed text-fg/90">{r.why}</p>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+                </li>
+              ))}
+            </ul>
+          </Inner>
         </Section>
 
-        {/* AI + Law */}
-        <Section id="law" eyebrow={t.law.eyebrow} title={t.law.title} intro={t.law.intro}>
-          <div className="grid gap-4 md:grid-cols-2">
-            {t.law.points.map((p) => (
-              <div key={p.title} className="card p-6">
-                <Scale className="h-5 w-5 text-accent" aria-hidden />
-                <h3 className="mt-3 text-lg font-semibold">{p.title}</h3>
-                <p className="mt-2 leading-relaxed text-muted">{p.body}</p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 max-w-3xl text-sm text-muted">{t.law.note}</p>
-        </Section>
-
-        {/* Work */}
-        <Section id="work" eyebrow={t.work.eyebrow} title={t.work.title}>
-          <div className="space-y-6">
+        {/* Projects */}
+        <Section id="work" title={t.work.title}>
+          <Inner className="space-y-10">
             {t.work.featured.map((p) => (
-              <article key={p.title} className="card overflow-hidden">
-                <div className="md:grid md:grid-cols-5">
+              <article key={p.title} className="panel overflow-hidden">
+                <div className="lg:grid lg:grid-cols-[1.35fr_1fr]">
                   {p.image && (
-                    <div className="relative aspect-[16/10] self-start border-b border-line md:col-span-3 md:m-4 md:overflow-hidden md:rounded-xl md:border">
+                    <div className="group relative aspect-[16/10] overflow-hidden border-b border-line lg:m-5 lg:rounded-md lg:border">
                       <Image
                         src={p.image}
                         alt={`${p.title} — ${t.work.screenshotAlt}`}
                         fill
-                        sizes="(min-width: 768px) 60vw, 100vw"
-                        className="object-cover object-top"
+                        sizes="(min-width: 1024px) 55vw, 100vw"
+                        className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.03]"
                       />
                     </div>
                   )}
-                  <div className="flex flex-col p-6 md:col-span-2 md:p-8">
+                  <div className="flex flex-col p-6 lg:p-8">
                     <p className="font-mono text-xs text-muted">
-                      {p.kind} · {p.year}
+                      {p.kind}, {p.year}
                     </p>
-                    <h3 className="mt-2 text-2xl font-semibold tracking-tight">{p.title}</h3>
-                    <p className="mt-3 text-muted">{p.summary}</p>
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {p.stack.map((s) => (
-                        <span key={s} className="chip">
-                          {s}
-                        </span>
-                      ))}
+                    <h3 className="mt-2 text-3xl font-semibold tracking-tight">{p.title}</h3>
+                    <p className="mt-3 leading-relaxed text-fg/80">{p.summary}</p>
+                    <div className="mt-5">
+                      <Tags items={p.stack} />
                     </div>
-                    <div className="mt-6 md:mt-auto md:pt-6">
+                    <div className="mt-6 lg:mt-auto lg:pt-6">
                       <ProjectLinks p={p} t={t.work} />
                     </div>
                   </div>
                 </div>
                 {p.caseStudy && (
                   <dl className="grid gap-px border-t border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
-                    <div className="bg-surface p-6">
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{t.work.labels.problem}</dt>
-                      <dd className="mt-2 text-sm leading-relaxed text-fg/85">{p.caseStudy.problem}</dd>
-                    </div>
-                    <div className="bg-surface p-6">
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{t.work.labels.approach}</dt>
-                      <dd className="mt-2 text-sm leading-relaxed text-fg/85">{p.caseStudy.approach}</dd>
-                    </div>
-                    <div className="bg-surface p-6">
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{t.work.labels.decisions}</dt>
+                    {(
+                      [
+                        [t.work.labels.problem, p.caseStudy.problem],
+                        [t.work.labels.approach, p.caseStudy.approach],
+                      ] as const
+                    ).map(([label, text]) => (
+                      <div key={label} className="bg-panel p-6">
+                        <dt className="text-sm font-semibold text-verdict">{label}</dt>
+                        <dd className="mt-2 text-sm leading-relaxed text-fg/80">{text}</dd>
+                      </div>
+                    ))}
+                    <div className="bg-panel p-6">
+                      <dt className="text-sm font-semibold text-verdict">{t.work.labels.decisions}</dt>
                       <dd className="mt-2">
                         <ul className="space-y-2 text-sm">
                           {p.caseStudy.decisions.map((d) => (
                             <li key={d} className="flex gap-2">
-                              <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent" />
-                              <span className="leading-relaxed text-fg/85">{d}</span>
+                              <span className="font-mono text-trace" aria-hidden>
+                                ›
+                              </span>
+                              <span className="leading-relaxed text-fg/80">{d}</span>
                             </li>
                           ))}
                         </ul>
                       </dd>
                     </div>
-                    <div className="bg-surface p-6">
-                      <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-accent">{t.work.labels.outcome}</dt>
-                      <dd className="mt-2 text-sm leading-relaxed text-fg/85">{p.caseStudy.outcome}</dd>
+                    <div className="bg-panel p-6">
+                      <dt className="text-sm font-semibold text-verdict">{t.work.labels.outcome}</dt>
+                      <dd className="mt-2 text-sm leading-relaxed text-fg/80">{p.caseStudy.outcome}</dd>
                     </div>
                   </dl>
                 )}
               </article>
             ))}
-          </div>
 
-          <h3 className="mt-16 font-mono text-xs uppercase tracking-[0.2em] text-muted">{t.work.more}</h3>
-          <div className="mt-5 grid gap-4 sm:grid-cols-2">
-            {t.work.others.map((p) => (
-              <article key={p.title} className="card flex flex-col p-6">
-                <p className="font-mono text-xs text-muted">
-                  {p.kind} · {p.year}
-                </p>
-                <h4 className="mt-2 text-lg font-semibold">{p.title}</h4>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{p.summary}</p>
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {p.stack.map((s) => (
-                    <span key={s} className="chip">
-                      {s}
-                    </span>
-                  ))}
-                </div>
-                <div className="mt-5 pt-1 md:mt-auto md:pt-5">
-                  <ProjectLinks p={p} t={t.work} />
-                </div>
-              </article>
-            ))}
-          </div>
-        </Section>
-
-        {/* Experience */}
-        <Section id="experience" eyebrow={t.experience.eyebrow} title={t.experience.title}>
-          <div className="grid gap-10 md:grid-cols-5">
-            <ol className="relative space-y-8 border-l border-line pl-6 md:col-span-3">
-              {t.experience.items.map((e) => (
-                <li key={e.title} className="relative">
-                  <span className="absolute -left-[1.83rem] top-1.5 h-3 w-3 rounded-full border-2 border-bg bg-accent" />
-                  <p className="font-mono text-xs text-muted">{e.period}</p>
-                  <h3 className="mt-1 text-lg font-semibold">{e.title}</h3>
-                  <p className="text-sm text-muted">{e.org}</p>
-                  <p className="mt-2 leading-relaxed text-fg/85">{e.body}</p>
-                </li>
-              ))}
-            </ol>
-            <div className="md:col-span-2">
-              <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{t.experience.educationLabel}</h3>
-              <ul className="mt-4 divide-y divide-line">
-                {t.experience.education.map((ed) => (
-                  <li key={ed.title} className="py-3">
-                    <p className="font-medium">{ed.title}</p>
-                    <p className="text-sm text-muted">
-                      {ed.org} · {ed.period}
+            <div>
+              <h3 className="text-xl font-semibold">{t.work.more}</h3>
+              <div className="mt-5 grid gap-px overflow-hidden rounded-lg border border-line bg-line sm:grid-cols-2">
+                {t.work.others.map((p) => (
+                  <article key={p.title} className="flex flex-col bg-ink p-6 transition-colors hover:bg-panel">
+                    <p className="font-mono text-xs text-muted">
+                      {p.kind}, {p.year}
                     </p>
-                  </li>
+                    <h4 className="mt-2 text-lg font-semibold">{p.title}</h4>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">{p.summary}</p>
+                    <div className="mt-4">
+                      <Tags items={p.stack} />
+                    </div>
+                    <div className="mt-5 md:mt-auto md:pt-5">
+                      <ProjectLinks p={p} t={t.work} />
+                    </div>
+                  </article>
                 ))}
-              </ul>
+              </div>
             </div>
-          </div>
+          </Inner>
         </Section>
 
-        {/* Stack */}
-        <Section id="stack" eyebrow={t.stack.eyebrow} title={t.stack.title}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {t.stack.groups.map((s) => (
-              <div key={s.group} className="card p-6">
-                <h3 className="font-mono text-xs uppercase tracking-[0.2em] text-muted">{s.group}</h3>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {s.items.map((i) => (
-                    <span key={i} className="rounded-md bg-fg/[0.06] px-2.5 py-1 text-sm">
-                      {i}
-                    </span>
-                  ))}
-                </div>
-              </div>
+        {/* Code review samples */}
+        <Section id="reviews" title={t.reviews.title} intro={t.reviews.intro}>
+          <Inner className="space-y-8">
+            {t.reviews.items.map((r, i) => (
+              <ReviewDiff
+                key={r.file}
+                review={r}
+                index={i}
+                labels={{
+                  context: t.reviews.context,
+                  before: t.reviews.before,
+                  after: t.reviews.after,
+                  issues: t.reviews.issues,
+                  why: t.reviews.why,
+                  source: t.reviews.source,
+                }}
+              />
             ))}
-          </div>
+          </Inner>
+        </Section>
+
+        {/* AI + Law */}
+        <Section id="law" title={t.law.title} intro={t.law.intro}>
+          <Inner>
+            <div className="grid gap-px overflow-hidden rounded-lg border border-line bg-line md:grid-cols-2">
+              {t.law.points.map((p) => (
+                <div key={p.title} className="bg-ink p-7">
+                  <h3 className="text-lg font-semibold text-verdict">{p.title}</h3>
+                  <p className="mt-3 leading-relaxed text-fg/80">{p.body}</p>
+                </div>
+              ))}
+            </div>
+            <p className="mt-6 max-w-3xl text-sm text-muted">{t.law.note}</p>
+          </Inner>
+        </Section>
+
+        {/* About, experience and stack */}
+        <Section id="about" title={t.about.title}>
+          <Inner>
+            <div className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+              <div>
+                <p className="text-xl leading-relaxed text-fg/90">{t.about.p1}</p>
+                <p className="mt-5 text-lg leading-relaxed text-muted">{t.about.p2}</p>
+              </div>
+              <dl className="grid grid-cols-2 gap-px self-start overflow-hidden rounded-lg border border-line bg-line">
+                {t.about.tiles.map((tile) => (
+                  <div key={tile.label} className="bg-ink p-5">
+                    <dt className="text-sm text-muted">{tile.label}</dt>
+                    <dd className="mt-1 font-semibold">{tile.value}</dd>
+                    {tile.sub && <dd className="mt-1 text-sm text-muted">{tile.sub}</dd>}
+                  </div>
+                ))}
+              </dl>
+            </div>
+
+            <div className="mt-20 grid gap-12 lg:grid-cols-[1.3fr_1fr]">
+              <div>
+                <h3 className="text-xl font-semibold">{t.experience.title}</h3>
+                <ol className="mt-6 space-y-8 border-l border-line pl-6">
+                  {t.experience.items.map((e) => (
+                    <li key={e.title} className="relative">
+                      <span className="absolute -left-[1.85rem] top-1.5 h-3 w-3 rounded-full border-2 border-ink bg-verdict" aria-hidden />
+                      <p className="font-mono text-xs text-muted">{e.period}</p>
+                      <h4 className="mt-1 text-lg font-semibold">{e.title}</h4>
+                      <p className="text-sm text-muted">{e.org}</p>
+                      <p className="mt-2 leading-relaxed text-fg/80">{e.body}</p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold">{t.experience.educationLabel}</h3>
+                <ul className="mt-6 divide-y divide-line border-y border-line">
+                  {t.experience.education.map((ed) => (
+                    <li key={ed.title} className="py-3">
+                      <p className="font-medium">{ed.title}</p>
+                      <p className="text-sm text-muted">
+                        {ed.org}, {ed.period}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div className="mt-20">
+              <h3 className="text-xl font-semibold">{t.stack.title}</h3>
+              <dl className="mt-6 divide-y divide-line border-y border-line">
+                {t.stack.groups.map((s) => (
+                  <div key={s.group} className="grid gap-3 py-4 sm:grid-cols-[10rem_1fr]">
+                    <dt className="text-sm text-muted sm:pt-0.5">{s.group}</dt>
+                    <dd>
+                      <Tags items={s.items} />
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </div>
+          </Inner>
         </Section>
 
         {/* Contact */}
-        <section id="contact" className="mx-auto max-w-page px-4 pb-24 sm:px-6">
-          <div className="card relative overflow-hidden p-8 sm:p-12">
-            <div
-              className="pointer-events-none absolute inset-0 opacity-60"
-              style={{ background: "radial-gradient(40rem 20rem at 100% 0%, rgb(var(--accent2) / 0.14), transparent 60%)" }}
-              aria-hidden
-            />
-            <div className="relative">
-              <p className="eyebrow">{t.contact.eyebrow}</p>
-              <h2 className="mt-3 max-w-xl text-3xl font-semibold tracking-tight text-balance sm:text-4xl">{t.contact.title}</h2>
-              <p className="mt-4 max-w-xl text-muted">{t.contact.body}</p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <External href={links.upwork} className="btn-primary">
-                  <Briefcase className="h-4 w-4" /> {t.contact.upwork}
-                </External>
-                <a href={`mailto:${links.email}`} className="btn-ghost max-w-full">
-                  <Mail className="h-4 w-4 shrink-0" /> <span className="truncate">{links.email}</span>
-                </a>
-                <External href={links.linkedin} className="btn-ghost">
-                  <Linkedin className="h-4 w-4" /> LinkedIn
-                </External>
-                <External href={links.github} className="btn-ghost">
-                  <Github className="h-4 w-4" /> GitHub
-                </External>
-              </div>
-            </div>
-          </div>
-        </section>
+        <Section id="contact" title={t.contact.title} intro={t.contact.body} className="pb-28">
+          <Inner>
+            <ul className="border-t border-line font-mono">
+              {t.contact.channels.map((c) => {
+                const isMail = c.href.startsWith("mailto:");
+                const cls =
+                  "group grid grid-cols-[6.5rem_1fr_auto] items-center gap-4 border-b border-line py-5 text-sm transition-colors hover:bg-panel sm:grid-cols-[10rem_1fr_auto] sm:px-4 sm:text-base";
+                const inner = (
+                  <>
+                    <span className="text-muted">{c.label}</span>
+                    <span className="min-w-0 truncate text-fg group-hover:text-verdict">{c.value}</span>
+                    <ArrowUpRight className="h-4 w-4 text-muted transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-verdict" />
+                  </>
+                );
+                return (
+                  <li key={c.label}>
+                    {isMail ? (
+                      <a href={c.href} className={cls}>
+                        {inner}
+                      </a>
+                    ) : (
+                      <External href={c.href} className={cls}>
+                        {inner}
+                      </External>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+            <External href={links.resume} className="btn-verdict mt-10">
+              <Download className="h-4 w-4" /> {t.contact.resumeLabel}
+            </External>
+          </Inner>
+        </Section>
       </main>
 
       <footer className="border-t border-line">
