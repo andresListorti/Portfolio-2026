@@ -226,9 +226,9 @@ const repos = {
 export const content: Record<Locale, Content> = {
   en: {
     meta: {
-      title: `${NAME} — AI-Native Full-Stack Developer & Lawyer`,
+      title: `${NAME} — AI-Native Web & App Builder & Lawyer`,
       description:
-        "Full-stack developer (Next.js, Node, Java/Spring) and lawyer based in Buenos Aires. I ship end-to-end products and review AI-generated code with a lawyer's rigor.",
+        "AI-native builder and lawyer in Buenos Aires. Websites, custom business apps, AI assistants and automations, built fast with the latest AI tools.",
       ogLocale: "en_US",
     },
     nav: [
@@ -236,7 +236,6 @@ export const content: Record<Locale, Content> = {
       { href: "#lab", label: "AI work" },
       { href: "#services", label: "Services" },
       { href: "#work", label: "Projects" },
-      { href: "#reviews", label: "Reviews" },
       { href: "#law", label: "AI + Law" },
       { href: "#about", label: "About" },
       { href: "#contact", label: "Contact" },
@@ -250,9 +249,9 @@ export const content: Record<Locale, Content> = {
       sectionsLabel: "Sections",
     },
     hero: {
-      badge: "Available for freelance & remote roles",
-      role: "AI-native full-stack developer and lawyer",
-      lead: "I direct AI coding agents to ship full-stack products fast, and I review every line they write with the rigor of 15 years reading contracts.",
+      badge: "Taking new projects: websites, apps & AI automations",
+      role: "AI-native web & app builder and lawyer",
+      lead: "I build websites, custom business apps and AI automations with the latest AI tools, so you get a working product in days or weeks, not months.",
       upwork: "Hire me on Upwork",
       email: "Email",
       resume: "Resume",
@@ -260,12 +259,12 @@ export const content: Record<Locale, Content> = {
     },
     about: {
       eyebrow: "About",
-      title: "A developer who spent fifteen years as a lawyer first.",
-      p1: "I've practiced business law since 2010, and I've been building software since 2020, self-taught at first and then trained through Coderhouse. Today I build products for small businesses end to end: front end, back end, payments, auth and deployment.",
-      p2: "The legal background isn't a footnote. It's why I read specs closely, think about edge cases and failure modes, and explain technical decisions clearly to people who aren't engineers.",
+      title: "A builder who spent fifteen years as a lawyer first.",
+      p1: "I've practiced business law since 2010 and have been building digital products since 2020. Today I work AI-native: AI tools do most of the building, and I own the result, from the plan to the product running live. I build for businesses in any niche: stores, services, professionals and startups.",
+      p2: "The legal background isn't a footnote. It's why I scope work carefully, think about what can go wrong, and explain decisions clearly to clients who aren't technical.",
       tiles: [
         { label: "Law", value: "Since 2010", sub: "Business law · Universidad de Belgrano" },
-        { label: "Code", value: "Since 2020", sub: "Full Stack · React & Next.js certs" },
+        { label: "Building", value: "Since 2020", sub: "AI-native · React & Next.js certs" },
         { label: "Languages", value: "English C1 · Spanish native" },
         { label: "Works with", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
@@ -276,8 +275,8 @@ export const content: Record<Locale, Content> = {
       { value: 3, suffix: "", label: "products running in production" },
       { value: 4, suffix: "", label: "AI coding agents in my daily loop" },
     ],
-    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java · Spring Boot", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Code review", "Business law"],
-    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Code review", "Business law", "AI governance"],
+    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "AI agents", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Nano Banana", "Business law"],
+    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Automations", "Business law", "AI governance"],
     images: {
       law: "Scales of justice drawn as a glowing knowledge graph, weighing legal papers against code",
       orchestration: "A developer at night directing floating AI agent terminals connected to one central node",
@@ -286,13 +285,13 @@ export const content: Record<Locale, Content> = {
     services: {
       eyebrow: "Services",
       title: "What I can do for you.",
-      intro: "Freelance or embedded in your team, remote from Buenos Aires, in English or Spanish.",
+      intro: "For businesses in any niche, remote from Buenos Aires, in English or Spanish. Fixed price and clear delivery dates.",
       cta: "Start a project",
       items: [
-        { name: "Full-stack product builds", body: "From idea to deployed app: Next.js and React on the front, Node or Java on the back, with auth, payments and Vercel deploys wired in.", deliverables: ["working MVP in weeks", "payments and auth included", "preview deploy on every change"] },
-        { name: "AI features and agents", body: "LLM features that are useful and safe: chat, content generation and agent workflows, with a human approval step where it matters.", deliverables: ["Gemini, OpenAI or Claude APIs", "human-in-the-loop by design", "cost-aware model routing"] },
-        { name: "Review of AI-generated code", body: "A second pair of eyes on code your team or your agents wrote: correctness, edge cases and security, with written findings.", deliverables: ["written review report", "fix PRs on request", "auth, secrets and webhooks checked"] },
-        { name: "Tech and legal bridge", body: "Plain-language documentation of what an AI feature does, what data it touches and where its limits are, with Ley 25.326 and GDPR basics in mind.", deliverables: ["data-flow notes", "API terms and ToS reading", "bilingual EN / ES docs"] },
+        { name: "Websites & landing pages", body: "Fast, mobile-first sites that load quickly and rank: from a one-page landing to a full company site on your own domain.", deliverables: ["live in days, not months", "SEO and analytics ready", "WhatsApp and contact forms wired in"] },
+        { name: "Custom business apps", body: "Apps shaped around how your business actually works: online stores, booking, pricing and stock tools, client portals and dashboards.", deliverables: ["login, database and admin panel", "payments with Mercado Pago or Stripe", "built for your niche"] },
+        { name: "AI assistants & automations", body: "Chatbots and agents that answer clients, capture leads and draft content, with a human approval step where it matters.", deliverables: ["website, Instagram or WhatsApp", "Gemini, OpenAI or Claude", "human-in-the-loop by design"] },
+        { name: "AI visuals & legal-aware delivery", body: "Product photos, social media assets and short promo videos made with AI, plus plain-language notes on data and terms of service from a practicing lawyer.", deliverables: ["Nano Banana and Higgsfield visuals", "privacy-aware by default (GDPR / Ley 25.326)", "bilingual EN / ES"] },
       ],
     },
     console: {
@@ -523,9 +522,9 @@ export const content: Record<Locale, Content> = {
       items: [
         {
           period: "2020 — present",
-          title: "Freelance Full-Stack Developer",
+          title: "AI-Native Web & App Builder (freelance)",
           org: "Self-employed · Remote",
-          body: "End-to-end products for small businesses: the Zapatería Genaro store, a costs & pricing tool for a shoe factory, and Digital Assistant, an AI SaaS for Instagram.",
+          body: "Digital products for small businesses, built AI-native: the Zapatería Genaro online store, a costs & pricing tool for a shoe factory, and Digital Assistant, an AI SaaS for Instagram.",
         },
         {
           period: "2010 — present",
@@ -555,7 +554,7 @@ export const content: Record<Locale, Content> = {
     },
     contact: {
       eyebrow: "Contact",
-      title: "Have a product to build or code to review?",
+      title: "Have a website, app or automation in mind?",
       body: "Pick whichever channel suits you. I answer in English or Spanish, usually within a day.",
       upwork: "Upwork profile",
       resumeLabel: "Download resume (PDF)",
@@ -572,9 +571,9 @@ export const content: Record<Locale, Content> = {
 
   es: {
     meta: {
-      title: `${NAME} — Desarrollador Full-Stack AI-Native y Abogado`,
+      title: `${NAME} — Creador de Webs y Apps con IA y Abogado`,
       description:
-        "Desarrollador full-stack (Next.js, Node, Java/Spring) y abogado en Buenos Aires. Construyo productos de punta a punta y reviso código generado por IA con rigor de abogado.",
+        "Creador AI-native y abogado en Buenos Aires. Sitios web, apps a medida para tu negocio, asistentes y automatizaciones con IA, hechos rápido con las últimas herramientas.",
       ogLocale: "es_AR",
     },
     nav: [
@@ -582,7 +581,6 @@ export const content: Record<Locale, Content> = {
       { href: "#lab", label: "IA" },
       { href: "#services", label: "Servicios" },
       { href: "#work", label: "Proyectos" },
-      { href: "#reviews", label: "Revisiones" },
       { href: "#law", label: "IA + Derecho" },
       { href: "#about", label: "Sobre mí" },
       { href: "#contact", label: "Contacto" },
@@ -596,9 +594,9 @@ export const content: Record<Locale, Content> = {
       sectionsLabel: "Secciones",
     },
     hero: {
-      badge: "Disponible para freelance y roles remotos",
-      role: "Desarrollador full-stack AI-native y abogado",
-      lead: "Dirijo agentes de IA para construir productos full-stack rápido, y reviso cada línea que escriben con el rigor de 15 años leyendo contratos.",
+      badge: "Tomando proyectos: webs, apps y automatizaciones con IA",
+      role: "Creador de webs y apps con IA, y abogado",
+      lead: "Construyo sitios web, apps a medida y automatizaciones con las últimas herramientas de IA, para que tengas tu producto funcionando en días o semanas, no meses.",
       upwork: "Contratame en Upwork",
       email: "Email",
       resume: "CV",
@@ -606,12 +604,12 @@ export const content: Record<Locale, Content> = {
     },
     about: {
       eyebrow: "Sobre mí",
-      title: "Un desarrollador que antes fue abogado durante quince años.",
-      p1: "Ejerzo el derecho empresarial desde 2010 y desarrollo software desde 2020: primero como autodidacta y después formado en Coderhouse. Hoy construyo productos para pymes de punta a punta: front end, back end, pagos, autenticación y deploy.",
-      p2: "La formación legal no es un detalle. Por eso leo las especificaciones con atención, pienso en los casos límite y en cómo puede fallar algo, y explico las decisiones técnicas con claridad a quienes no son ingenieros.",
+      title: "Un creador de productos que antes fue abogado durante quince años.",
+      p1: "Ejerzo el derecho empresarial desde 2010 y construyo productos digitales desde 2020. Hoy trabajo AI-native: las herramientas de IA hacen la mayor parte de la construcción y yo me hago cargo del resultado, desde el plan hasta el producto funcionando. Trabajo para negocios de cualquier rubro: comercios, servicios, profesionales y startups.",
+      p2: "La formación legal no es un detalle. Por eso defino bien el alcance, pienso en qué puede salir mal y explico las decisiones con claridad a clientes que no son técnicos.",
       tiles: [
         { label: "Derecho", value: "Desde 2010", sub: "Derecho empresarial · Universidad de Belgrano" },
-        { label: "Código", value: "Desde 2020", sub: "Full Stack · certificaciones React y Next.js" },
+        { label: "Productos", value: "Desde 2020", sub: "AI-native · certificaciones React y Next.js" },
         { label: "Idiomas", value: "Inglés C1 · Español nativo" },
         { label: "Trabajo con", value: "Next.js · Node · Java/Spring · Firebase" },
       ],
@@ -622,8 +620,8 @@ export const content: Record<Locale, Content> = {
       { value: 3, suffix: "", label: "productos funcionando en producción" },
       { value: 4, suffix: "", label: "agentes de IA en mi flujo diario" },
     ],
-    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java · Spring Boot", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Revisión de código", "Derecho empresarial"],
-    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Code review", "Derecho", "Gobernanza IA"],
+    marquee: ["Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Agentes de IA", "Python", "Firestore", "Mercado Pago", "MCP", "OpenCode", "Vercel", "Nano Banana", "Derecho empresarial"],
+    graphLabels: ["Claude Code", "Codex", "MCP", "OpenCode", "React", "Next.js", "Node.js", "Java", "Python", "Firestore", "Vercel", "Automatizaciones", "Derecho", "Gobernanza IA"],
     images: {
       law: "Balanza de la justicia dibujada como un grafo luminoso, pesando papeles legales contra código",
       orchestration: "Un desarrollador de noche dirigiendo terminales de agentes de IA conectadas a un nodo central",
@@ -632,13 +630,13 @@ export const content: Record<Locale, Content> = {
     services: {
       eyebrow: "Servicios",
       title: "Qué puedo hacer por vos.",
-      intro: "Freelance o integrado a tu equipo, remoto desde Buenos Aires, en español o inglés.",
+      intro: "Para negocios de cualquier rubro, remoto desde Buenos Aires, en español o inglés. Precio cerrado y fechas de entrega claras.",
       cta: "Empezar un proyecto",
       items: [
-        { name: "Productos full-stack", body: "De la idea a la app publicada: Next.js y React en el front, Node o Java en el back, con autenticación, pagos y deploys en Vercel.", deliverables: ["MVP funcionando en semanas", "pagos y autenticación incluidos", "preview en cada cambio"] },
-        { name: "Funciones y agentes de IA", body: "Funciones con LLM útiles y seguras: chat, generación de contenido y flujos con agentes, con aprobación humana donde importa.", deliverables: ["APIs de Gemini, OpenAI o Claude", "humano en el circuito por diseño", "modelos elegidos según costo"] },
-        { name: "Revisión de código generado por IA", body: "Un segundo par de ojos sobre el código que escribió tu equipo o tus agentes: que sea correcto, casos límite y seguridad, con hallazgos por escrito.", deliverables: ["informe de revisión escrito", "PRs con los arreglos si querés", "auth, secretos y webhooks revisados"] },
-        { name: "Puente entre tecnología y derecho", body: "Documentación en lenguaje claro de qué hace una función de IA, qué datos toca y cuáles son sus límites, teniendo en cuenta la Ley 25.326 y lo básico del GDPR.", deliverables: ["notas de flujo de datos", "lectura de términos de APIs y plataformas", "documentación bilingüe ES / EN"] },
+        { name: "Sitios web y landing pages", body: "Sitios rápidos, pensados para celular y listos para aparecer en Google: desde una landing de una página hasta la web completa de tu empresa con tu dominio.", deliverables: ["online en días, no meses", "SEO y analítica listos", "WhatsApp y formularios conectados"] },
+        { name: "Apps a medida para tu negocio", body: "Apps adaptadas a cómo funciona tu negocio: tiendas online, turnos, herramientas de precios y stock, portales de clientes y tableros.", deliverables: ["login, base de datos y panel de administración", "pagos con Mercado Pago o Stripe", "pensadas para tu rubro"] },
+        { name: "Asistentes y automatizaciones con IA", body: "Chatbots y agentes que responden a tus clientes, capturan consultas y preparan contenido, con aprobación humana donde importa.", deliverables: ["web, Instagram o WhatsApp", "Gemini, OpenAI o Claude", "humano en el circuito por diseño"] },
+        { name: "Contenido visual con IA y mirada legal", body: "Fotos de producto, piezas para redes y videos cortos hechos con IA, más notas claras sobre datos y términos de servicio de parte de un abogado en ejercicio.", deliverables: ["visuales con Nano Banana y Higgsfield", "cuidado de datos personales (Ley 25.326 / GDPR)", "bilingüe ES / EN"] },
       ],
     },
     console: {
@@ -869,9 +867,9 @@ export const content: Record<Locale, Content> = {
       items: [
         {
           period: "2020 — hoy",
-          title: "Desarrollador Full-Stack freelance",
+          title: "Creador de webs y apps con IA (freelance)",
           org: "Independiente · Remoto",
-          body: "Productos de punta a punta para pymes: la tienda de Zapatería Genaro, una herramienta de costos y precios para una fábrica de calzado y Digital Assistant, un SaaS de IA para Instagram.",
+          body: "Productos digitales para pymes, construidos AI-native: la tienda online de Zapatería Genaro, una herramienta de costos y precios para una fábrica de calzado y Digital Assistant, un SaaS de IA para Instagram.",
         },
         {
           period: "2010 — hoy",
@@ -901,7 +899,7 @@ export const content: Record<Locale, Content> = {
     },
     contact: {
       eyebrow: "Contacto",
-      title: "¿Tenés un producto para construir o código para revisar?",
+      title: "¿Tenés en mente una web, una app o una automatización?",
       body: "Elegí el canal que te quede más cómodo. Respondo en español o inglés, normalmente en el día.",
       upwork: "Perfil de Upwork",
       resumeLabel: "Descargar CV (PDF)",

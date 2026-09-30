@@ -5,7 +5,6 @@ import GraphField from "./components/graph-field";
 import { CountUp, Marquee, Parallax, Reveal, RevealText, ScrollProgress, Spotlight } from "./components/motion-kit";
 import OrchestratorConsole from "./components/orchestrator-console";
 import Pipeline from "./components/pipeline";
-import ReviewDiff from "./components/review-diff";
 import SiteNav from "./components/site-nav";
 import SmoothScroll from "./components/smooth-scroll";
 import { NAME, SITE_URL, content, links, localePath, type Locale, type Project } from "./data";
@@ -122,7 +121,7 @@ function jsonLd() {
     name: NAME,
     url: SITE_URL,
     image: `${SITE_URL}/art/portrait.webp`,
-    jobTitle: ["AI-Native Full-Stack Developer", "Lawyer"],
+    jobTitle: ["AI-Native Web & App Builder", "Lawyer"],
     email: `mailto:${links.email}`,
     address: { "@type": "PostalAddress", addressLocality: "Buenos Aires", addressCountry: "AR" },
     alumniOf: [
@@ -130,7 +129,7 @@ function jsonLd() {
       { "@type": "EducationalOrganization", name: "Coderhouse" },
     ],
     knowsLanguage: ["en", "es"],
-    knowsAbout: ["AI agents", "Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Java", "Spring Boot", "Code review", "Business law"],
+    knowsAbout: ["AI agents", "Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Websites", "Business apps", "AI automations", "Business law"],
     sameAs: [links.upwork, links.github, links.linkedin],
   };
 }
@@ -404,28 +403,6 @@ export default function Home({ locale }: { locale: Locale }) {
                 ))}
               </div>
             </div>
-          </Inner>
-        </Section>
-
-        {/* Code review samples */}
-        <Section id="reviews" label={label("reviews")} title={t.reviews.title} intro={t.reviews.intro}>
-          <Inner className="space-y-8">
-            {t.reviews.items.map((r, i) => (
-              <Reveal key={r.file}>
-                <ReviewDiff
-                  review={r}
-                  index={i}
-                  labels={{
-                    context: t.reviews.context,
-                    before: t.reviews.before,
-                    after: t.reviews.after,
-                    issues: t.reviews.issues,
-                    why: t.reviews.why,
-                    source: t.reviews.source,
-                  }}
-                />
-              </Reveal>
-            ))}
           </Inner>
         </Section>
 
