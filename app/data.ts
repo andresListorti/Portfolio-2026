@@ -10,6 +10,7 @@ export const localePath = (l: Locale) => (l === "en" ? "/" : "/es");
 
 export const links = {
   upwork: "https://www.upwork.com/freelancers/~019cbbd63fe3a1e4b9",
+  workana: "https://www.workana.com/freelancer/6b18b18dd3587c88334bd58e0e96b19d",
   github: "https://github.com/andresListorti",
   linkedin: "https://www.linkedin.com/in/andres-listorti-177485240/",
   email: "andreslistorti@gmail.com",
@@ -118,6 +119,7 @@ type Content = {
   nav: { href: string; label: string }[];
   ui: {
     hireMe: string;
+    hireOptions: { upwork: string; workana: string };
     toTop: string;
     themeLabel: string;
     langSwitch: string;
@@ -242,6 +244,7 @@ export const content: Record<Locale, Content> = {
     ],
     ui: {
       hireMe: "Hire me",
+      hireOptions: { upwork: "Hire me on Upwork", workana: "Hire me on Workana" },
       toTop: "back to top",
       themeLabel: "Toggle color theme",
       langSwitch: "ES",
@@ -252,7 +255,7 @@ export const content: Record<Locale, Content> = {
       badge: "Taking new projects: websites, apps & AI automations",
       role: "AI-native web & app builder and lawyer",
       lead: "I build websites, custom business apps and AI automations with the latest AI tools, so you get a working product in days or weeks, not months.",
-      upwork: "Hire me on Upwork",
+      upwork: "Hire me",
       email: "Email",
       resume: "Resume",
       location: "Buenos Aires · GMT-3",
@@ -448,7 +451,7 @@ export const content: Record<Locale, Content> = {
               "Vitest + Testing Library, Sentry monitoring and transactional email via Resend.",
             ],
             outcome:
-              "Live with catalog, accounts and admin working. Checkout is deliberately closed behind a launch switch until the owner opens the store.",
+              "Live with catalog, accounts, admin and Mercado Pago checkout working end to end: payment inside the site, stock reservation and automatic order confirmation.",
           },
           image: "/projects/genaro-home.webp",
           live: "https://genarozapateria.vercel.app",
@@ -563,6 +566,7 @@ export const content: Record<Locale, Content> = {
         { label: "LinkedIn", value: "in/andres-listorti", href: links.linkedin },
         { label: "GitHub", value: "andresListorti", href: links.github },
         { label: "Upwork", value: "Freelancer profile", href: links.upwork },
+        { label: "Workana", value: "Freelancer profile", href: links.workana },
         { label: "WhatsApp", value: "+54 9 11 2532-6630", href: links.whatsapp },
       ],
     },
@@ -587,6 +591,7 @@ export const content: Record<Locale, Content> = {
     ],
     ui: {
       hireMe: "Contratame",
+      hireOptions: { upwork: "Contratame en Upwork", workana: "Contratame en Workana" },
       toTop: "volver arriba",
       themeLabel: "Cambiar tema de color",
       langSwitch: "EN",
@@ -597,7 +602,7 @@ export const content: Record<Locale, Content> = {
       badge: "Tomando proyectos: webs, apps y automatizaciones con IA",
       role: "Creador de webs y apps con IA, y abogado",
       lead: "Construyo sitios web, apps a medida y automatizaciones con las últimas herramientas de IA, para que tengas tu producto funcionando en días o semanas, no meses.",
-      upwork: "Contratame en Upwork",
+      upwork: "Contratame",
       email: "Email",
       resume: "CV",
       location: "Buenos Aires · GMT-3",
@@ -793,7 +798,7 @@ export const content: Record<Locale, Content> = {
               "Vitest + Testing Library, monitoreo con Sentry y emails transaccionales con Resend.",
             ],
             outcome:
-              "En línea con catálogo, cuentas y administración funcionando. El checkout está cerrado a propósito detrás de un interruptor de lanzamiento hasta que el dueño abra la tienda.",
+              "En línea con catálogo, cuentas, administración y checkout de Mercado Pago funcionando de punta a punta: pago dentro del sitio, reserva de stock y confirmación automática del pedido.",
           },
           image: "/projects/genaro-home.webp",
           live: "https://genarozapateria.vercel.app",
@@ -908,6 +913,7 @@ export const content: Record<Locale, Content> = {
         { label: "LinkedIn", value: "in/andres-listorti", href: links.linkedin },
         { label: "GitHub", value: "andresListorti", href: links.github },
         { label: "Upwork", value: "Perfil freelance", href: links.upwork },
+        { label: "Workana", value: "Perfil freelance", href: links.workana },
         { label: "WhatsApp", value: "+54 9 11 2532-6630", href: links.whatsapp },
       ],
     },

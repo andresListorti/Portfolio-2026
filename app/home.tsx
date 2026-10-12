@@ -2,6 +2,7 @@ import { ArrowUpRight, Download, FileText, Github, Linkedin, Lock, Mail, Message
 import Image from "next/image";
 import type React from "react";
 import GraphField from "./components/graph-field";
+import HireMenu from "./components/hire-menu";
 import { CountUp, Marquee, Parallax, Reveal, RevealText, ScrollProgress, Spotlight } from "./components/motion-kit";
 import OrchestratorConsole from "./components/orchestrator-console";
 import Pipeline from "./components/pipeline";
@@ -130,13 +131,17 @@ function jsonLd() {
     ],
     knowsLanguage: ["en", "es"],
     knowsAbout: ["AI agents", "Claude Code", "Next.js", "React", "Node.js", "TypeScript", "Websites", "Business apps", "AI automations", "Business law"],
-    sameAs: [links.upwork, links.github, links.linkedin],
+    sameAs: [links.upwork, links.workana, links.github, links.linkedin],
   };
 }
 
 export default function Home({ locale }: { locale: Locale }) {
   const t = content[locale];
   const other: Locale = locale === "en" ? "es" : "en";
+  const hireOptions = [
+    { label: t.ui.hireOptions.upwork, href: links.upwork },
+    { label: t.ui.hireOptions.workana, href: links.workana },
+  ];
   const label = (id: string) => t.nav.find((n) => n.href === `#${id}`)?.label ?? id;
 
   return (
@@ -157,7 +162,7 @@ export default function Home({ locale }: { locale: Locale }) {
         sectionsLabel={t.ui.sectionsLabel}
         topLabel={`${NAME}, ${t.ui.toTop}`}
         hireMe={t.ui.hireMe}
-        hireHref={links.upwork}
+        hireOptions={hireOptions}
         resumeHref={links.resume}
         resumeLabel={t.contact.resumeLabel}
         langHref={localePath(other)}
@@ -185,9 +190,7 @@ export default function Home({ locale }: { locale: Locale }) {
                 <p className="mt-5 text-xl font-medium text-fg/85 sm:text-2xl">{t.hero.role}</p>
                 <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">{t.hero.lead}</p>
                 <div className="mt-9 flex flex-wrap gap-3">
-                  <External href={links.upwork} className="btn-verdict">
-                    {t.hero.upwork}
-                  </External>
+                  <HireMenu label={t.hero.upwork} options={hireOptions} />
                   <a href={`mailto:${links.email}`} className="btn-line bg-ink/60 backdrop-blur">
                     <Mail className="h-4 w-4" /> {t.hero.email}
                   </a>

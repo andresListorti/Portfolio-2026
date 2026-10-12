@@ -2,6 +2,7 @@
 
 import { FileText } from "lucide-react";
 import { useEffect, useState } from "react";
+import HireMenu from "./hire-menu";
 
 type NavProps = {
   name: string;
@@ -11,7 +12,7 @@ type NavProps = {
   sectionsLabel: string;
   topLabel: string;
   hireMe: string;
-  hireHref: string;
+  hireOptions: { label: string; href: string }[];
   resumeHref: string;
   resumeLabel: string;
   langHref: string;
@@ -91,9 +92,7 @@ export default function SiteNav(p: NavProps) {
           >
             <FileText className="h-4 w-4" />
           </a>
-          <a href={p.hireHref} target="_blank" rel="noopener noreferrer" className="btn-verdict !px-4 !py-2">
-            {p.hireMe}
-          </a>
+          <HireMenu label={p.hireMe} options={p.hireOptions} align="right" className="!px-4 !py-2" />
         </div>
       </div>
     </header>
