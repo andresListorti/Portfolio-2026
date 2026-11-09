@@ -453,7 +453,7 @@ export const content: Record<Locale, Content> = {
               "Vitest + Testing Library, Sentry monitoring and transactional email via Resend.",
             ],
             outcome:
-              "Live with catalog, accounts, admin and Mercado Pago checkout working end to end: payment inside the site, stock reservation and automatic order confirmation.",
+              "Catalog, accounts and admin panel are live. The Mercado Pago checkout works end to end in test mode (payment inside the site, stock reservation, automatic order confirmation); payments stay closed until the owner delivers the product photos and the store opens.",
           },
           image: "/projects/genaro-home.webp",
           live: "https://genarozapateria.vercel.app",
@@ -871,7 +871,7 @@ export const content: Record<Locale, Content> = {
               "Vitest + Testing Library, monitoreo con Sentry y emails transaccionales con Resend.",
             ],
             outcome:
-              "En línea con catálogo, cuentas, administración y checkout de Mercado Pago funcionando de punta a punta: pago dentro del sitio, reserva de stock y confirmación automática del pedido.",
+              "Catálogo, cuentas y panel de administración en línea. El checkout de Mercado Pago funciona de punta a punta en modo prueba (pago dentro del sitio, reserva de stock, confirmación automática del pedido); los pagos siguen cerrados hasta que el dueño entregue las fotos de producto y se abra la tienda.",
           },
           image: "/projects/genaro-home.webp",
           live: "https://genarozapateria.vercel.app",
