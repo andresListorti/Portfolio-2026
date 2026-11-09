@@ -223,6 +223,8 @@ const stackItems = {
 const repos = {
   genio: "https://github.com/andresListorti/Genio26",
   java: "https://github.com/andresListorti/java-ecomm",
+  harness: "https://github.com/andresListorti/harness",
+  viba: "https://github.com/andresListorti/viba-agency-web",
 };
 
 export const content: Record<Locale, Content> = {
@@ -424,7 +426,7 @@ export const content: Record<Locale, Content> = {
     },
     work: {
       eyebrow: "Selected work",
-      title: "Real products, running in production.",
+      title: "Real products and open-source work.",
       more: "More projects",
       live: "Live",
       productSite: "Product site",
@@ -471,7 +473,8 @@ export const content: Record<Locale, Content> = {
               "Pluggable LLM providers for copy and images (Gemini, OpenAI, Claude), plus a manual mode.",
               "Nothing is published through the Meta Graph API without an explicit human approval.",
               "Errors send a post back to review instead of losing it or retrying blindly.",
-              "Workspaces, Google sign-in and monthly plans billed through Mercado Pago.",
+              "Workspaces, Google sign-in, monthly plans through Mercado Pago and an interface in Spanish, English and Portuguese.",
+              "A circuit breaker answers instantly when the database quota runs out, so scheduled posts never hang on a timeout.",
             ],
             outcome:
               "In production at app.digitalassistant.com.ar, with review, calendar, comment and DM inboxes, and metrics.",
@@ -479,6 +482,76 @@ export const content: Record<Locale, Content> = {
           image: "/projects/digital-home.webp",
           live: "https://digitalassistant.com.ar",
           isPrivate: true,
+        },
+        {
+          title: "Encaralo",
+          kind: "Legal-tech web app (Argentina)",
+          year: "2026",
+          summary: "Plain-language legal help for people in Argentina: guides, a final-severance calculator and document templates to fill in and download, with accounts and payments.",
+          stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "Mercado Pago", "docx", "Vitest"],
+          caseStudy: {
+            problem:
+              "Workers and consumers in Argentina often cannot afford a lawyer just to calculate what they are owed or write a telegram or a cartas documento.",
+            approach:
+              "19 guides, a calculator for dismissal without cause, resignation and dismissal with cause under Law 27.802 (with credit updating by IPC + 3% or the BCRA passive rate), and 31 templates with fill-in fields, preview and Word download. Accounts, a free quota, a subscription and pay-per-document run on Firebase and Mercado Pago.",
+            decisions: [
+              "Every rule, cap and figure must cite an official source (Boletin Oficial, InfoLeg, BCRA, INDEC); the test suite fails if a template cites anything else.",
+              "Templates are data, not screen code, and nothing is published until the owner approves it.",
+              "Signature-verified, idempotent payment webhooks: a late notice never re-credits a refunded payment.",
+              "Withdrawal-request flow and refunds from an admin panel with orders, users, metrics and prices.",
+            ],
+            outcome:
+              "Live at encaralo.com.ar since November 3, 2026. I tested the whole purchase circuit in production with a real small payment (signed webhook credits the account, document downloads, withdrawal request, refund). An orientation tool, not legal advice.",
+          },
+          image: "/projects/encaralo-home.webp",
+          live: "https://encaralo.com.ar",
+          isPrivate: true,
+        },
+        {
+          title: "VIBA Agency",
+          kind: "Marketing agency website",
+          year: "2026",
+          summary: "Full redesign of vibaagency.com for an Argentine marketing agency: monochrome, animated, with a brand-diagnostic lead funnel.",
+          stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind v4", "GSAP", "Motion", "Lenis", "Zod"],
+          caseStudy: {
+            problem:
+              "The agency's old site did not reflect its brand, and its mobile menu did not even work.",
+            approach:
+              "A black and bone-white design where color appears only in photography, a translation of the motto \"we feel what we do\". Animated home, 11 statically generated service pages with their own metadata and share images, and a 3-question diagnostic that recommends services and opens a prefilled WhatsApp message.",
+            decisions: [
+              "The contact API validates with Zod, filters spam with a honeypot, rate-limits and forwards to the Formspree the agency already uses: no database needed.",
+              "SEO from day one: canonical URLs, sitemap, structured data (MarketingAgency, Service, BreadcrumbList) and share images.",
+              "CSP, HSTS and clickjacking protection, plus reduced-motion support, skip link and ARIA states.",
+              "A full-screen accessible mobile menu with focus handling.",
+            ],
+            outcome:
+              "Delivered as a live Vercel build, ready to connect to the agency's own domain.",
+          },
+          image: "/projects/viba-home.webp",
+          live: "https://viba-web-olive.vercel.app",
+          code: repos.viba,
+        },
+        {
+          title: "Harness",
+          kind: "Open-source agent harness",
+          year: "2026",
+          summary: "A development loop where Claude Code plans and Codex implements, and tests, not the agents, decide when a task is done.",
+          stack: ["Claude Code", "Codex", "TypeScript", "Node.js", "Vitest", "GitHub Actions"],
+          caseStudy: {
+            problem: "A single agent does not reliably catch its own mistakes.",
+            approach:
+              "One model family implements and a different one verifies. The orchestrator runs the tests itself instead of trusting the worker's report, one branch per task, merging to main only after it passes.",
+            decisions: [
+              "If the worker fails twice on the same task, the loop stops and asks a human.",
+              "The worker sandbox has no network and cannot write to .git, so the orchestrator installs dependencies and owns every branch and commit.",
+              "Two fixed-price plans keep costs predictable, with no per-token billing.",
+              "A local, read-only dashboard shows the plan board, agents and run log.",
+            ],
+            outcome:
+              "A to-do REST API built entirely through the loop: 10 of 10 tasks, 1 retry, 0 escalations to a human, 109 passing tests.",
+          },
+          image: "/projects/harness-home.webp",
+          code: repos.harness,
         },
       ],
       others: [
@@ -527,7 +600,7 @@ export const content: Record<Locale, Content> = {
           period: "2020 — present",
           title: "AI-Native Web & App Builder (freelance)",
           org: "Self-employed · Remote",
-          body: "Digital products for small businesses, built AI-native: the Zapatería Genaro online store, a costs & pricing tool for a shoe factory, and Digital Assistant, an AI SaaS for Instagram.",
+          body: "Digital products for small businesses, built AI-native: the Zapatería Genaro online store, Encaralo (legal-tech), Digital Assistant (an AI SaaS for Instagram), a redesign of the VIBA Agency website, a costs & pricing tool for a shoe factory, and Harness, an open-source Claude Code + Codex loop.",
         },
         {
           period: "2010 — present",
@@ -771,7 +844,7 @@ export const content: Record<Locale, Content> = {
     },
     work: {
       eyebrow: "Proyectos destacados",
-      title: "Productos reales, funcionando en producción.",
+      title: "Productos reales y trabajo open source.",
       more: "Más proyectos",
       live: "En vivo",
       productSite: "Sitio del producto",
@@ -818,7 +891,8 @@ export const content: Record<Locale, Content> = {
               "Proveedores de LLM intercambiables para textos e imágenes (Gemini, OpenAI, Claude), más un modo manual.",
               "Nada se publica a través de la Meta Graph API sin una aprobación humana explícita.",
               "Ante un error, el post vuelve a revisión en lugar de perderse o reintentarse a ciegas.",
-              "Espacios de trabajo, ingreso con Google y planes mensuales cobrados con Mercado Pago.",
+              "Espacios de trabajo, ingreso con Google, planes mensuales con Mercado Pago e interfaz en español, inglés y portugués.",
+              "Un cortocircuito responde al instante cuando se agota la cuota de la base de datos, así los posts programados no se cuelgan por timeout.",
             ],
             outcome:
               "En producción en app.digitalassistant.com.ar, con revisión, calendario, bandejas de comentarios y mensajes directos, y métricas.",
@@ -826,6 +900,76 @@ export const content: Record<Locale, Content> = {
           image: "/projects/digital-home.webp",
           live: "https://digitalassistant.com.ar",
           isPrivate: true,
+        },
+        {
+          title: "Encaralo",
+          kind: "Web app legal-tech (Argentina)",
+          year: "2026",
+          summary: "Ayuda legal en lenguaje simple para personas en Argentina: guías, calculadora de liquidación final y modelos de documentos para completar y descargar, con cuentas y pagos.",
+          stack: ["Next.js 16", "React 19", "TypeScript", "Firebase", "Mercado Pago", "docx", "Vitest"],
+          caseStudy: {
+            problem:
+              "Trabajadores y consumidores en Argentina muchas veces no pueden pagar un abogado solo para calcular lo que les corresponde o redactar un telegrama o una carta documento.",
+            approach:
+              "19 guías, una calculadora de despido sin causa, renuncia y despido con causa según la Ley 27.802 (con actualización de créditos por IPC + 3% o tasa pasiva del BCRA) y 31 modelos con campos a completar, vista previa y descarga en Word. Cuentas, cupo gratuito, suscripción y pago por documento sobre Firebase y Mercado Pago.",
+            decisions: [
+              "Toda norma, tope o dato debe citar una fuente oficial (Boletín Oficial, InfoLeg, BCRA, INDEC); los tests fallan si un modelo cita otra cosa.",
+              "Los modelos son datos, no código de pantalla, y nada se publica hasta que lo aprueba el titular.",
+              "Webhooks de pago con firma verificada e idempotentes: un aviso tardío nunca vuelve a acreditar un pago devuelto.",
+              "Flujo de arrepentimiento y devoluciones desde un panel de administración con pedidos, usuarios, métricas y precios.",
+            ],
+            outcome:
+              "En línea en encaralo.com.ar desde el 3 de noviembre de 2026. Probé todo el circuito de compra en producción con un pago real chico (el webhook firmado acredita la cuenta, se descarga el documento, pedido de arrepentimiento, devolución). Es una herramienta orientativa, no asesoramiento legal.",
+          },
+          image: "/projects/encaralo-home.webp",
+          live: "https://encaralo.com.ar",
+          isPrivate: true,
+        },
+        {
+          title: "VIBA Agency",
+          kind: "Sitio web de agencia de marketing",
+          year: "2026",
+          summary: "Rediseño completo de vibaagency.com para una agencia de marketing argentina: monocromo, animado, con un diagnóstico de marca que genera leads.",
+          stack: ["Next.js 16", "React 19", "TypeScript", "Tailwind v4", "GSAP", "Motion", "Lenis", "Zod"],
+          caseStudy: {
+            problem:
+              "El sitio anterior de la agencia no reflejaba su marca y ni siquiera tenía un menú mobile que funcionara.",
+            approach:
+              "Un diseño en negro y blanco hueso donde el color aparece solo en la fotografía, como traducción del lema \"we feel what we do\". Home animada, 11 páginas de servicio generadas estáticamente con su propia metadata e imagen para compartir, y un diagnóstico de 3 preguntas que recomienda servicios y abre un mensaje de WhatsApp precargado.",
+            decisions: [
+              "La API de contacto valida con Zod, filtra spam con honeypot, limita envíos y reenvía al Formspree que la agencia ya usa: no hace falta base de datos.",
+              "SEO desde el primer día: URLs canónicas, sitemap, datos estructurados (MarketingAgency, Service, BreadcrumbList) e imágenes para compartir.",
+              "CSP, HSTS y protección contra clickjacking, más soporte de reduced-motion, skip link y estados ARIA.",
+              "Menú mobile a pantalla completa y accesible, con manejo de foco.",
+            ],
+            outcome:
+              "Entregado como sitio en vivo en Vercel, listo para conectar al dominio propio de la agencia.",
+          },
+          image: "/projects/viba-home.webp",
+          live: "https://viba-web-olive.vercel.app",
+          code: repos.viba,
+        },
+        {
+          title: "Harness",
+          kind: "Arnés de agentes open source",
+          year: "2026",
+          summary: "Un ciclo de desarrollo donde Claude Code planifica y Codex implementa, y los tests, no los agentes, deciden cuándo termina una tarea.",
+          stack: ["Claude Code", "Codex", "TypeScript", "Node.js", "Vitest", "GitHub Actions"],
+          caseStudy: {
+            problem: "Un solo agente no detecta de forma confiable sus propios errores.",
+            approach:
+              "Una familia de modelos implementa y otra distinta verifica. El orquestador corre los tests él mismo en vez de confiar en el reporte del trabajador, una rama por tarea, y recién se mergea a main cuando pasa.",
+            decisions: [
+              "Si el trabajador falla dos veces en la misma tarea, el ciclo se detiene y pide a una persona.",
+              "El sandbox del trabajador no tiene red ni puede escribir en .git, así que el orquestador instala dependencias y es dueño de cada rama y commit.",
+              "Dos planes de precio fijo mantienen los costos predecibles, sin facturación por token.",
+              "Un panel local de solo lectura muestra el tablero del plan, los agentes y el registro de ejecución.",
+            ],
+            outcome:
+              "Una API REST de tareas construida enteramente con el ciclo: 10 de 10 tareas, 1 reintento, 0 escalamientos a una persona, 109 tests pasando.",
+          },
+          image: "/projects/harness-home.webp",
+          code: repos.harness,
         },
       ],
       others: [
@@ -874,7 +1018,7 @@ export const content: Record<Locale, Content> = {
           period: "2020 — hoy",
           title: "Creador de webs y apps con IA (freelance)",
           org: "Independiente · Remoto",
-          body: "Productos digitales para pymes, construidos AI-native: la tienda online de Zapatería Genaro, una herramienta de costos y precios para una fábrica de calzado y Digital Assistant, un SaaS de IA para Instagram.",
+          body: "Productos digitales para pymes, construidos AI-native: la tienda online de Zapatería Genaro, Encaralo (legal-tech), Digital Assistant (un SaaS de IA para Instagram), el rediseño del sitio de VIBA Agency, una herramienta de costos y precios para una fábrica de calzado y Harness, un ciclo open source de Claude Code + Codex.",
         },
         {
           period: "2010 — hoy",
