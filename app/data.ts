@@ -477,7 +477,7 @@ export const content: Record<Locale, Content> = {
               "A circuit breaker answers instantly when the database quota runs out, so scheduled posts never hang on a timeout.",
             ],
             outcome:
-              "In production at app.digitalassistant.com.ar, with review, calendar, comment and DM inboxes, and metrics.",
+              "In production at app.digitalassistant.com.ar, with review, calendar, comment and DM inboxes, and metrics. Approved by Meta App Review.",
           },
           image: "/projects/digital-home.webp",
           live: "https://digitalassistant.com.ar",
@@ -895,7 +895,7 @@ export const content: Record<Locale, Content> = {
               "Un cortocircuito responde al instante cuando se agota la cuota de la base de datos, así los posts programados no se cuelgan por timeout.",
             ],
             outcome:
-              "En producción en app.digitalassistant.com.ar, con revisión, calendario, bandejas de comentarios y mensajes directos, y métricas.",
+              "En producción en app.digitalassistant.com.ar, con revisión, calendario, bandejas de comentarios y mensajes directos, y métricas. Aprobada por Meta App Review.",
           },
           image: "/projects/digital-home.webp",
           live: "https://digitalassistant.com.ar",
