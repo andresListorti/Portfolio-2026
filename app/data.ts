@@ -224,6 +224,7 @@ const repos = {
   genio: "https://github.com/andresListorti/Genio26",
   java: "https://github.com/andresListorti/java-ecomm",
   harness: "https://github.com/andresListorti/harness",
+  leadQualifier: "https://github.com/andresListorti/lead-qualifier-agent",
   viba: "https://github.com/andresListorti/viba-agency-web",
 };
 
@@ -552,6 +553,27 @@ export const content: Record<Locale, Content> = {
           },
           image: "/projects/harness-home.webp",
           code: repos.harness,
+        },
+        {
+          title: "Lead Qualifier Agent",
+          kind: "Backend portfolio project (demo data)",
+          year: "2026",
+          summary: "A FastAPI service that qualifies sales leads with an AI agent and serves them through an Auth0-protected API. Demo data only, not a production system.",
+          stack: ["Python", "FastAPI", "MySQL", "Auth0", "GitHub Actions", "AWS SAM"],
+          caseStudy: {
+            problem: "Show a realistic backend stack end to end: API, database, authentication, CI and cloud packaging.",
+            approach:
+              "FastAPI with Pydantic v2 and SQLAlchemy on MySQL. The agent sits behind a provider interface: a deterministic fixture by default, and an optional free-tier Gemini provider, with one retry and a safe fallback.",
+            decisions: [
+              "Auth0 RS256 tokens validated against the JWKS with the algorithm pinned; missing or invalid token gives 401, missing permission 403, and auth that is not configured fails closed.",
+              "Tests cover algorithm confusion, alg=none, wrong key, wrong audience and expired tokens.",
+              "GitHub Actions runs lint, tests and migrations against a MySQL service container.",
+              "AWS-ready (Lambda handler and SAM template, linted in CI) but not deployed, so it costs nothing.",
+            ],
+            outcome:
+              "40 passing tests and a verified end-to-end call with a real Auth0 token. Built with Claude Code and Codex.",
+          },
+          code: repos.leadQualifier,
         },
       ],
       others: [
@@ -970,6 +992,27 @@ export const content: Record<Locale, Content> = {
           },
           image: "/projects/harness-home.webp",
           code: repos.harness,
+        },
+        {
+          title: "Lead Qualifier Agent",
+          kind: "Proyecto de portfolio backend (datos de demo)",
+          year: "2026",
+          summary: "Un servicio FastAPI que califica leads de ventas con un agente de IA y los expone mediante una API protegida con Auth0. Solo datos de demo, no es un sistema en producción.",
+          stack: ["Python", "FastAPI", "MySQL", "Auth0", "GitHub Actions", "AWS SAM"],
+          caseStudy: {
+            problem: "Mostrar un stack backend realista de punta a punta: API, base de datos, autenticación, CI y empaquetado para la nube.",
+            approach:
+              "FastAPI con Pydantic v2 y SQLAlchemy sobre MySQL. El agente está detrás de una interfaz de proveedor: un fixture determinístico por defecto y un proveedor Gemini gratuito opcional, con un reintento y un resultado de respaldo seguro.",
+            decisions: [
+              "Tokens RS256 de Auth0 validados contra el JWKS con el algoritmo fijado; sin token o token inválido da 401, sin permiso 403, y si la autenticación no está configurada falla cerrado.",
+              "Los tests cubren confusión de algoritmo, alg=none, clave equivocada, audiencia incorrecta y tokens vencidos.",
+              "GitHub Actions corre lint, tests y migraciones contra un contenedor MySQL.",
+              "Listo para AWS (handler de Lambda y plantilla SAM, validada en CI) pero sin desplegar, así que no cuesta nada.",
+            ],
+            outcome:
+              "40 tests pasando y una llamada de punta a punta verificada con un token real de Auth0. Construido con Claude Code y Codex.",
+          },
+          code: repos.leadQualifier,
         },
       ],
       others: [
