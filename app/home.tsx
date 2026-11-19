@@ -122,7 +122,7 @@ function jsonLd() {
     name: NAME,
     url: SITE_URL,
     image: `${SITE_URL}/art/portrait.webp`,
-    jobTitle: ["AI-Native Web & App Builder", "Lawyer"],
+    jobTitle: "AI-Native Full Stack Engineer",
     email: `mailto:${links.email}`,
     address: { "@type": "PostalAddress", addressLocality: "Buenos Aires", addressCountry: "AR" },
     alumniOf: [
