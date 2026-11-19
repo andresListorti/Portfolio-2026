@@ -33,6 +33,7 @@ export type Project = {
   stack: string[];
   caseStudy?: CaseStudy;
   image?: string;
+  imageFit?: "contain";
   live?: string;
   code?: string;
   isPrivate?: boolean;
@@ -231,7 +232,7 @@ const repos = {
 export const content: Record<Locale, Content> = {
   en: {
     meta: {
-      title: `${NAME} — AI-Native Web & App Builder & Lawyer`,
+      title: `${NAME} — AI-Native Full Stack Engineer`,
       description:
         "AI-native builder and lawyer in Buenos Aires. Websites, custom business apps, AI assistants and automations, built fast with the latest AI tools.",
       ogLocale: "en_US",
@@ -256,7 +257,7 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Taking new projects: websites, apps & AI automations",
-      role: "AI-native web & app builder and lawyer",
+      role: "AI-native full stack engineer",
       lead: "I build websites, custom business apps and AI automations with the latest AI tools, so you get a working product in days or weeks, not months.",
       upwork: "Hire me",
       email: "Email",
@@ -574,6 +575,7 @@ export const content: Record<Locale, Content> = {
               "40 passing tests and a verified end-to-end call with a real Auth0 token. Built with Claude Code and Codex.",
           },
           image: "/projects/lead-qualifier-docs.webp",
+          imageFit: "contain",
           code: repos.leadQualifier,
         },
       ],
@@ -671,7 +673,7 @@ export const content: Record<Locale, Content> = {
 
   es: {
     meta: {
-      title: `${NAME} — Creador de Webs y Apps con IA y Abogado`,
+      title: `${NAME} — Ingeniero Full Stack AI-Native`,
       description:
         "Creador AI-native y abogado en Buenos Aires. Sitios web, apps a medida para tu negocio, asistentes y automatizaciones con IA, hechos rápido con las últimas herramientas.",
       ogLocale: "es_AR",
@@ -696,7 +698,7 @@ export const content: Record<Locale, Content> = {
     },
     hero: {
       badge: "Tomando proyectos: webs, apps y automatizaciones con IA",
-      role: "Creador de webs y apps con IA, y abogado",
+      role: "Ingeniero full stack AI-native",
       lead: "Construyo sitios web, apps a medida y automatizaciones con las últimas herramientas de IA, para que tengas tu producto funcionando en días o semanas, no meses.",
       upwork: "Contratame",
       email: "Email",
@@ -1014,6 +1016,7 @@ export const content: Record<Locale, Content> = {
               "40 tests pasando y una llamada de punta a punta verificada con un token real de Auth0. Construido con Claude Code y Codex.",
           },
           image: "/projects/lead-qualifier-docs.webp",
+          imageFit: "contain",
           code: repos.leadQualifier,
         },
       ],
