@@ -574,7 +574,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "40 passing tests and a verified end-to-end call with a real Auth0 token. Built with Claude Code and Codex.",
           },
-          image: "/projects/lead-qualifier-docs.webp",
+          image: "/projects/lead-qualifier-api.webp",
           imageFit: "contain",
           code: repos.leadQualifier,
         },
@@ -1015,7 +1015,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "40 tests pasando y una llamada de punta a punta verificada con un token real de Auth0. Construido con Claude Code y Codex.",
           },
-          image: "/projects/lead-qualifier-docs.webp",
+          image: "/projects/lead-qualifier-api.webp",
           imageFit: "contain",
           code: repos.leadQualifier,
         },
