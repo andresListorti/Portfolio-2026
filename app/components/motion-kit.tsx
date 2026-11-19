@@ -168,13 +168,13 @@ export function ScrollProgress() {
 }
 
 /** Moves its content vertically while the wrapper crosses the viewport. */
-export function Parallax({ children, amount = 60, className = "" }: { children: ReactNode; amount?: number; className?: string }) {
+export function Parallax({ children, amount = 60, className = "", ratio }: { children: ReactNode; amount?: number; className?: string; ratio?: string }) {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], [-amount, amount]);
   return (
-    <div ref={ref} className={`relative overflow-hidden ${className}`}>
+    <div ref={ref} className={`relative overflow-hidden ${className}`} style={ratio ? { aspectRatio: ratio } : undefined}>
       <motion.div className="absolute inset-x-0" style={{ top: -amount, bottom: -amount, y: reduce ? 0 : y }}>
         {children}
       </motion.div>

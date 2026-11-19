@@ -320,19 +320,8 @@ export default function Home({ locale }: { locale: Locale }) {
             {t.work.featured.map((p) => (
               <Reveal as="article" key={p.title} className="panel overflow-hidden backdrop-blur-sm">
                 <div className="lg:grid lg:grid-cols-[1.35fr_1fr]">
-                  {p.image && p.imageFit === "contain" && (
-                    <div className="relative aspect-[16/10] overflow-hidden border-b border-line bg-[#0d121e] lg:m-5 lg:rounded-md lg:border">
-                      <Image
-                        src={p.image}
-                        alt={`${p.title} — ${t.work.screenshotAlt}`}
-                        fill
-                        sizes="(min-width: 1024px) 55vw, 100vw"
-                        className="object-contain"
-                      />
-                    </div>
-                  )}
-                  {p.image && p.imageFit !== "contain" && (
-                    <Parallax amount={30} className="aspect-[16/10] border-b border-line lg:m-5 lg:rounded-md lg:border">
+                  {p.image && (
+                    <Parallax amount={12} ratio={p.imageRatio} className="aspect-[16/10] border-b border-line lg:m-5 lg:rounded-md lg:border">
                       <Image
                         src={p.image}
                         alt={`${p.title} — ${t.work.screenshotAlt}`}

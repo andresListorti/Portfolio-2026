@@ -33,7 +33,7 @@ export type Project = {
   stack: string[];
   caseStudy?: CaseStudy;
   image?: string;
-  imageFit?: "contain";
+  imageRatio?: string;
   live?: string;
   code?: string;
   isPrivate?: boolean;
@@ -505,7 +505,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "Live at encaralo.com.ar since November 3, 2026. I tested the whole purchase circuit in production with a real small payment (signed webhook credits the account, document downloads, withdrawal request, refund). An orientation tool, not legal advice.",
           },
-          image: "/projects/encaralo-home.webp",
+          image: "/projects/encaralo-home.webp", imageRatio: "2 / 1",
           live: "https://encaralo.com.ar",
           isPrivate: true,
         },
@@ -552,7 +552,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "A to-do REST API built entirely through the loop: 10 of 10 tasks, 1 retry, 0 escalations to a human, 109 passing tests.",
           },
-          image: "/projects/harness-home.webp",
+          image: "/projects/harness-home.webp", imageRatio: "2 / 1",
           code: repos.harness,
         },
         {
@@ -575,7 +575,6 @@ export const content: Record<Locale, Content> = {
               "40 passing tests and a verified end-to-end call with a real Auth0 token. Built with Claude Code and Codex.",
           },
           image: "/projects/lead-qualifier-api.webp",
-          imageFit: "contain",
           code: repos.leadQualifier,
         },
       ],
@@ -946,7 +945,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "En línea en encaralo.com.ar desde el 3 de noviembre de 2026. Probé todo el circuito de compra en producción con un pago real chico (el webhook firmado acredita la cuenta, se descarga el documento, pedido de arrepentimiento, devolución). Es una herramienta orientativa, no asesoramiento legal.",
           },
-          image: "/projects/encaralo-home.webp",
+          image: "/projects/encaralo-home.webp", imageRatio: "2 / 1",
           live: "https://encaralo.com.ar",
           isPrivate: true,
         },
@@ -993,7 +992,7 @@ export const content: Record<Locale, Content> = {
             outcome:
               "Una API REST de tareas construida enteramente con el ciclo: 10 de 10 tareas, 1 reintento, 0 escalamientos a una persona, 109 tests pasando.",
           },
-          image: "/projects/harness-home.webp",
+          image: "/projects/harness-home.webp", imageRatio: "2 / 1",
           code: repos.harness,
         },
         {
@@ -1016,7 +1015,6 @@ export const content: Record<Locale, Content> = {
               "40 tests pasando y una llamada de punta a punta verificada con un token real de Auth0. Construido con Claude Code y Codex.",
           },
           image: "/projects/lead-qualifier-api.webp",
-          imageFit: "contain",
           code: repos.leadQualifier,
         },
       ],
